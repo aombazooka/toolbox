@@ -18,5 +18,5 @@ define('DB_CHARSET', 'utf8mb4');
 define('BASE_URL', 'http://localhost/qrcode');
 
 // --- App ---
-define('APP_NAME', 'QR Studio');
+define('APP_NAME', 'Toolbox');
 define('APP_TZ', 'Asia/Bangkok');

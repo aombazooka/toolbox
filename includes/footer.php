@@ -1,5 +1,5 @@
 </main>
-<footer><?= e(APP_NAME) ?> · ระบบสร้างและจัดการ QR Code</footer>
+<footer><?= e(APP_NAME) ?> · เครื่องมือออนไลน์ ฟรี ใช้ง่าย ไม่ต้องล็อกอิน</footer>
 <div class="toast" id="toast"></div>
 <script>
 /* ---- theme (persisted) ---- */
@@ -19,6 +19,12 @@
     paint();
   };
 })();
+/* ---- close the "เครื่องมือ" nav dropdown when clicking outside it ---- */
+document.addEventListener('click', function (e) {
+  document.querySelectorAll('.nav-drop[open]').forEach(function (d) {
+    if (!d.contains(e.target)) d.removeAttribute('open');
+  });
+});
 /* ---- toast helper ---- */
 window.toast = function (msg, type) {
   const t = document.getElementById('toast');

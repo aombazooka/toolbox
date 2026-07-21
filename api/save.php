@@ -5,9 +5,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') json_out(['ok' => false, 'error' => '
 $in = json_input();
 if (!csrf_check($in['csrf'] ?? '')) json_out(['ok' => false, 'error' => 'เซสชันหมดอายุ กรุณารีเฟรชหน้า'], 400);
 
-// Guests (not logged in) may ONLY create new static QR codes, attributed to the
-// system "guest" user. Editing, dynamic QR, and history require login.
-$isGuest = !is_logged_in();
+// Privacy: guests (not logged in) may create + download QR codes entirely client-side,
+// but nothing is ever persisted for them — this endpoint is a no-op for guests so no
+// row is ever written to `qrcodes` under the "__guest__" user.
+// (Matches assets/js/create.js, which now skips calling this endpoint when isGuest.)
+if (!is_logged_in()) {
+    json_out(['ok' => true, 'id' => null, 'short_code' => null, 'dynamic_link' => null]);
+}
 
 $name = trim($in['name'] ?? '');
 if ($name === '') $name = 'ไม่มีชื่อ';
@@ -17,7 +21,7 @@ $dest = trim($in['destination_url'] ?? '');
 if ($dest === '') json_out(['ok' => false, 'error' => 'กรุณากรอกลิงก์ปลายทาง'], 422);
 if (mb_strlen($dest) > 2000) json_out(['ok' => false, 'error' => 'ลิงก์ยาวเกินไป'], 422);
 
-$type     = (!$isGuest && ($in['type'] ?? 'static') === 'dynamic') ? 'dynamic' : 'static';
+$type     = (($in['type'] ?? 'static') === 'dynamic') ? 'dynamic' : 'static';
 $category = trim($in['category'] ?? '');
 $category = $category !== '' ? $category : null;
 
@@ -41,9 +45,8 @@ if (array_key_exists('expires_at', $in) && $in['expires_at'] !== null && trim((s
     $expiresAt = date('Y-m-d H:i:s', $ts);
 }
 
-/* ---- update path: id present → edit an existing record in place ---- */
+/* ---- update path: id present → edit an existing record in place (login required — already guaranteed above) ---- */
 $editId = (int)($in['id'] ?? 0);
-if ($editId > 0 && $isGuest) json_out(['ok' => false, 'error' => 'ต้องเข้าสู่ระบบเพื่อแก้ไข'], 401);
 if ($editId > 0) {
     // Admins may edit any user's QR; staff stays restricted to their own.
     if (is_admin()) {
@@ -86,9 +89,8 @@ if ($type === 'dynamic') {
     if (strlen($code) < 5) $code = generate_short_code();
 }
 
-// Owner: the logged-in user, or the system guest user for anonymous creations.
-$ownerId = $isGuest ? guest_user_id() : uid();
-if ($isGuest && $ownerId <= 0) json_out(['ok' => false, 'error' => 'ระบบยังไม่พร้อมรับการบันทึกแบบไม่ล็อกอิน'], 503);
+// Owner: always the logged-in user — guests never reach this point (see guard above).
+$ownerId = uid();
 
 $sql = "INSERT INTO qrcodes (user_id, name, category, type, destination_url, short_code, style_json, logo_data, expires_at)
         VALUES (?,?,?,?,?,?,?,?,?)";
@@ -108,7 +110,7 @@ while (true) {
 }
 
 $id = (int)db()->lastInsertId();
-log_audit('qr_create', 'qrcode', $id, $name, $isGuest ? $ownerId : null);
+log_audit('qr_create', 'qrcode', $id, $name);
 json_out([
     'ok'           => true,
     'id'           => $id,

@@ -95,7 +95,7 @@ function render(items) {
       acts.appendChild(iconBtn('สถิติ', 'stats', () => { location.href = 'analytics.php?id=' + item.id; }));
       acts.appendChild(iconBtn(item.is_active ? 'ปิดการใช้งาน' : 'เปิดใช้งาน', item.is_active ? 'off' : 'on', () => toggleActive(item, row)));
     }
-    acts.appendChild(iconBtn('แก้ไข', 'edit', () => { location.href = 'index.php?edit=' + item.id; }));
+    acts.appendChild(iconBtn('แก้ไข', 'edit', () => { location.href = 'qr.php?edit=' + item.id; }));
     acts.appendChild(iconBtn('ลบ', 'del', () => del(item, row)));
     body.appendChild(row);
   });

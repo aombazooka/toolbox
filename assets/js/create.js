@@ -10,7 +10,7 @@ const S = {
   logo: null, logoSize: 40, size: 512, expiresAt: ''
 };
 let savedId = null;                 // id of the last saved record (null = unsaved)
-let editMode = false, editId = null; // editing an existing record (index.php?edit=ID)
+let editMode = false, editId = null; // editing an existing record (qr.php?edit=ID)
 const isGuest = !!(window.APP && window.APP.isGuest); // no login: static create + download only
 
 function randCode(len) {
@@ -377,6 +377,7 @@ async function updateRecord() {
 
 /* ---- auto-save (only the first download of a given QR persists it) ---- */
 async function saveIfNeeded() {
+  if (isGuest) return true;                        // privacy: guests never persist — create+download only, nothing is saved
   if (savedId !== null) return true;              // already saved this QR — don't duplicate
   const dest = (S.link || '').trim();
   if (!dest) return false;                          // nothing meaningful to save
@@ -416,7 +417,7 @@ $('dyn-copy').onclick = async () => {
   navigator.clipboard.writeText($('dyn-link').value).then(() => toast('คัดลอกลิงก์แล้ว'));
 };
 
-/* ---- explicit "save edit" button (edit mode only — see index.php) ---- */
+/* ---- explicit "save edit" button (edit mode only — see qr.php) ---- */
 if ($('edit-save-btn')) $('edit-save-btn').onclick = () => updateRecord();
 
 /* ---- init ---- */
