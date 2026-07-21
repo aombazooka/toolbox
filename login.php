@@ -108,6 +108,7 @@ $csrf = csrf_token();
       <button class="btn btn-primary btn-block" type="submit" style="margin-top:6px">เข้าสู่ระบบ</button>
     </form>
     <div class="auth-foot">ยังไม่มีบัญชี? <a href="register.php" style="color:var(--accent-strong);font-weight:600">สมัครสมาชิก</a></div>
+    <div class="auth-foot"><a href="index.php" style="color:var(--text-2);font-weight:500">&larr; กลับหน้าหลัก</a></div>
   </div>
 </div>
 </body>
