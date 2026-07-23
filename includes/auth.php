@@ -15,7 +15,12 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 function current_user(): ?array {
-    return $_SESSION['user'] ?? null;
+    $u = $_SESSION['user'] ?? null;
+    if (!$u) return null;
+    // Self-heal a session written by an older/partial shape so display code
+    // never hits an undefined-array-key warning on a stale session.
+    if (empty($u['display_name'])) $u['display_name'] = $u['username'] ?? '';
+    return $u;
 }
 
 function is_logged_in(): bool {
