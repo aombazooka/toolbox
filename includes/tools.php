@@ -25,4 +25,13 @@ return [
         'cat'   => 'QR & ลิงก์',
         'login' => false,
     ],
+    [
+        'slug'  => 'shorten',
+        'title' => 'ย่อลิงก์',
+        'desc'  => 'ย่อลิงก์ยาวให้สั้น ตั้งชื่อเองได้ นับยอดคลิก และทำ QR ต่อได้ทันที',
+        'href'  => 'shorten.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.07 0l1.93-1.93a5 5 0 00-7.07-7.07L10.5 5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 11a5 5 0 00-7.07 0L5 12.93a5 5 0 007.07 7.07l1.49-1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'cat'   => 'QR & ลิงก์',
+        'login' => false,
+    ],
 ];

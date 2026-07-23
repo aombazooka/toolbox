@@ -154,6 +154,42 @@ $migrations = [
             }
         },
     ],
+    [
+        'name'  => 'สร้างตาราง short_links (T1 — ย่อลิงก์ + นับคลิก)',
+        'check' => fn(PDO $pdo) => table_exists($pdo, 'short_links'),
+        'apply' => fn(PDO $pdo) => $pdo->exec(
+            'CREATE TABLE IF NOT EXISTS short_links (
+              id          INT AUTO_INCREMENT PRIMARY KEY,
+              code        VARCHAR(32) NOT NULL UNIQUE,
+              target_url  TEXT NOT NULL,
+              user_id     INT NULL,
+              clicks      INT NOT NULL DEFAULT 0,
+              is_active   TINYINT(1) NOT NULL DEFAULT 1,
+              expires_at  DATETIME NULL,
+              created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+              CONSTRAINT fk_short_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+              INDEX idx_short_user (user_id),
+              INDEX idx_short_created (created_at)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
+        ),
+    ],
+    [
+        'name'  => 'สร้างตาราง short_clicks (T1 — log การคลิกลิงก์สั้น)',
+        'check' => fn(PDO $pdo) => table_exists($pdo, 'short_clicks'),
+        'apply' => fn(PDO $pdo) => $pdo->exec(
+            'CREATE TABLE IF NOT EXISTS short_clicks (
+              id         INT AUTO_INCREMENT PRIMARY KEY,
+              link_id    INT NOT NULL,
+              clicked_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+              ip_hash    VARCHAR(64) NULL,
+              referer    VARCHAR(500) NULL,
+              ua         VARCHAR(255) NULL,
+              CONSTRAINT fk_short_click_link FOREIGN KEY (link_id) REFERENCES short_links(id) ON DELETE CASCADE,
+              INDEX idx_short_click_link (link_id),
+              INDEX idx_short_click_time (clicked_at)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
+        ),
+    ],
 ];
 
 $pdo = db();

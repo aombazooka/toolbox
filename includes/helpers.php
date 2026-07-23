@@ -59,6 +59,11 @@ function dynamic_link(string $code): string {
     return rtrim(BASE_URL, '/') . '/r.php?c=' . $code;
 }
 
+/** Build the redirect URL a short link (shorten.php / s.php) should encode. */
+function short_link(string $code): string {
+    return rtrim(BASE_URL, '/') . '/s.php?c=' . $code;
+}
+
 /** id of the system "guest" user that owns QR codes created without login (0 if none). */
 function guest_user_id(): int {
     static $id = null;
