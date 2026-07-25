@@ -266,6 +266,16 @@
 .pwd-meter-label .pml-tag.strong{color:var(--ok)}
 .pwd-meter-label .pml-tag.very-strong{color:#1f9aa0}
 
+/* ---------- Unit/temperature/currency converter (T10) ---------- */
+#cat-tabs{flex-wrap:wrap;height:auto;row-gap:4px}
+#cat-tabs button{flex:0 0 auto;padding:7px 13px}
+.conv-pair{display:grid;grid-template-columns:1fr 128px;gap:8px}
+@media(max-width:480px){.conv-pair{grid-template-columns:1fr 104px}}
+.conv-swap-wrap{display:flex;justify-content:center;margin:2px 0 4px}
+.conv-swap-btn{width:36px;height:36px;border-radius:50%;background:var(--surface-3);border:1px solid var(--border-strong);display:grid;place-items:center;color:var(--text-2);transition:.18s}
+.conv-swap-btn:hover{background:var(--accent-soft);color:var(--accent-strong);transform:rotate(180deg)}
+.conv-swap-btn svg{width:17px;height:17px}
+
 @media print {
   header, footer, .no-print, .toast { display: none !important; }
   @page { size: A4; margin: 10mm; }

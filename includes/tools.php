@@ -106,4 +106,13 @@ return [
         'cat'   => 'ตัวช่วย & สุ่ม',
         'login' => false,
     ],
+    [
+        'slug'  => 'convert',
+        'title' => 'แปลงหน่วย/อุณหภูมิ/สกุลเงิน',
+        'desc'  => 'แปลงความยาว น้ำหนัก พื้นที่ ปริมาตร ความเร็ว ข้อมูล เวลา อุณหภูมิ และอัตราแลกเปลี่ยนสกุลเงิน',
+        'href'  => 'convert.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 9l3-3M4 9l3 3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 15H4M20 15l-3-3M20 15l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'cat'   => 'เครื่องคำนวณ',
+        'login' => false,
+    ],
 ];
