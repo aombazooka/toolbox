@@ -34,4 +34,13 @@ return [
         'cat'   => 'QR & ลิงก์',
         'login' => false,
     ],
+    [
+        'slug'  => 'qr-presets',
+        'title' => 'QR สำเร็จรูป',
+        'desc'  => 'สร้าง QR สำหรับ WiFi, นามบัตร (vCard), อีเมล, SMS หรือเบอร์โทร ได้ทันที',
+        'href'  => 'qr-presets.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M6 16c.5-2 2-3 2.5-3s2 1 2.5 3M13 9h5M13 13h5" stroke-linecap="round"/></svg>',
+        'cat'   => 'QR & ลิงก์',
+        'login' => false,
+    ],
 ];
