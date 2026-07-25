@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(php -v)"
+      "Bash(php -v)",
+      "Bash(curl -s http://localhost/qrcode/pdf.php)",
+      "Bash(grep -i -E \"warning|notice|deprecated|fatal error\" /tmp_pdf_page.html)",
+      "Bash(wc -l /tmp_pdf_page.html)",
+      "Bash(curl -s -o /dev/null -w \"vendor_http_code:%{http_code} size:%{size_download}\\\\n\" http://localhost/qrcode/assets/vendor/pdf-lib.min.js)",
+      "Bash(curl -sI http://localhost/qrcode/assets/vendor/pdf-lib.min.js)"
     ]
   }
 }
