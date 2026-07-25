@@ -97,4 +97,13 @@ return [
         'cat'   => 'ตัวช่วย & สุ่ม',
         'login' => false,
     ],
+    [
+        'slug'  => 'date-tools',
+        'title' => 'อายุ / นับวัน / พ.ศ.-ค.ศ.',
+        'desc'  => 'คำนวณอายุ นับวันระหว่าง 2 วันที่ บวก/ลบวัน และแปลงปี พ.ศ.↔ค.ศ. พร้อมวันที่แบบไทย',
+        'href'  => 'date-tools.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke-linecap="round"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-linecap="round"/></svg>',
+        'cat'   => 'ตัวช่วย & สุ่ม',
+        'login' => false,
+    ],
 ];
