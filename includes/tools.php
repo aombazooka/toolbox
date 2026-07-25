@@ -43,4 +43,13 @@ return [
         'cat'   => 'QR & ลิงก์',
         'login' => false,
     ],
+    [
+        'slug'  => 'image',
+        'title' => 'ลดขนาด/แปลงรูปภาพ',
+        'desc'  => 'ย่อขนาด บีบอัด และแปลงไฟล์ภาพ (JPG/PNG/WebP) หลายไฟล์พร้อมกัน ในเบราว์เซอร์ล้วน',
+        'href'  => 'image.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'cat'   => 'รูปภาพ & PDF',
+        'login' => false,
+    ],
 ];
