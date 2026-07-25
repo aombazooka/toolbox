@@ -190,6 +190,24 @@
 .ii-acts button:disabled{opacity:.35;cursor:default}
 .ii-acts button.ii-remove:hover{color:var(--danger)}
 
+/* ---------- Loan calculator (T5) ---------- */
+.loan-grid{display:grid;grid-template-columns:380px 1fr;gap:24px;align-items:start}
+@media(max-width:900px){.loan-grid{grid-template-columns:1fr}}
+.loan-result-wrap{display:flex;flex-direction:column;gap:16px}
+.loan-table-card{overflow:hidden}
+.amort-wrap{max-height:520px;overflow:auto}
+.amort-table{width:100%;border-collapse:collapse;font-size:13px;font-family:'Inter'}
+.amort-table th,.amort-table td{padding:9px 14px;text-align:right;white-space:nowrap}
+.amort-table th:first-child,.amort-table td:first-child{text-align:left}
+.amort-table thead th{position:sticky;top:0;z-index:1;background:var(--surface-2);font-family:'IBM Plex Sans Thai';font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);border-bottom:1px solid var(--border)}
+.amort-table tbody tr{border-bottom:1px solid var(--border)}
+.amort-table tbody tr:last-child{border-bottom:none}
+.amort-table tbody tr:hover{background:var(--surface-2)}
+.amort-table tbody tr.amort-last{font-weight:600;background:var(--accent-soft)}
+@media(max-width:640px){
+  .amort-table th,.amort-table td{padding:8px 10px;font-size:12px}
+}
+
 @media print {
   header, footer, .no-print, .toast { display: none !important; }
   @page { size: A4; margin: 10mm; }

@@ -61,4 +61,13 @@ return [
         'cat'   => 'รูปภาพ & PDF',
         'login' => false,
     ],
+    [
+        'slug'  => 'calc-loan',
+        'title' => 'คำนวณผ่อน/สินเชื่อ',
+        'desc'  => 'คำนวณค่างวดรายเดือน ดอกเบี้ยรวม และตารางผ่อนชำระ แบบลดต้นลดดอกหรือคงที่',
+        'href'  => 'calc-loan.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" stroke-linecap="round"/></svg>',
+        'cat'   => 'เครื่องคำนวณ',
+        'login' => false,
+    ],
 ];
