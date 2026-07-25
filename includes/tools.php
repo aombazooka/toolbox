@@ -70,4 +70,13 @@ return [
         'cat'   => 'เครื่องคำนวณ',
         'login' => false,
     ],
+    [
+        'slug'  => 'calc',
+        'title' => 'ชุดเครื่องคำนวณ',
+        'desc'  => 'BMI ส่วนลด VAT 7% เปอร์เซ็นต์ และทิป คำนวณสดในเบราว์เซอร์',
+        'href'  => 'calc.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6" stroke-linecap="round"/><path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01" stroke-linecap="round"/></svg>',
+        'cat'   => 'เครื่องคำนวณ',
+        'login' => false,
+    ],
 ];
