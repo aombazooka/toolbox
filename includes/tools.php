@@ -88,4 +88,13 @@ return [
         'cat'   => 'ตัวช่วย & สุ่ม',
         'login' => false,
     ],
+    [
+        'slug'  => 'password',
+        'title' => 'สร้างรหัสผ่านปลอดภัย',
+        'desc'  => 'สุ่มรหัสผ่านแข็งแรงหรือ Passphrase จำง่าย พร้อมตัววัดความแข็งแรง',
+        'href'  => 'password.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"/></svg>',
+        'cat'   => 'ตัวช่วย & สุ่ม',
+        'login' => false,
+    ],
 ];

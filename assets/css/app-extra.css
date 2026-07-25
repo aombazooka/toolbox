@@ -243,6 +243,29 @@
 .coin-face.tails{background:linear-gradient(145deg,var(--surface-3),var(--border-strong));color:var(--text-2)}
 .dice-sum{text-align:center;margin-top:14px;font-size:13px;color:var(--text-3)}
 
+/* ---------- Password generator (T8) ---------- */
+.pw-len-badge{font-family:'Inter';font-weight:700;font-size:15px;color:var(--accent-strong)}
+.pw-toggles .toggle-row{padding:11px 0;border-bottom:1px solid var(--border)}
+.pw-toggles .toggle-row:last-child{border-bottom:none}
+
+.pwd-display{font-family:'Inter',monospace;font-size:22px;font-weight:700;letter-spacing:.5px;word-break:break-all;text-align:center;padding:20px 16px;background:var(--surface-2);border:1px solid var(--border-strong);border-radius:14px;min-height:34px;display:flex;align-items:center;justify-content:center}
+@media(max-width:480px){.pwd-display{font-size:17px}}
+.pwd-display.empty{color:var(--text-3);font-weight:500;font-size:13.5px}
+
+.pwd-meter{margin-top:16px}
+.pwd-meter-track{height:8px;border-radius:6px;background:var(--surface-3);overflow:hidden}
+.pwd-meter-fill{height:100%;width:0%;border-radius:6px;transition:width .25s,background-color .25s;background:var(--danger)}
+.pwd-meter-fill.weak{background:var(--danger)}
+.pwd-meter-fill.medium{background:#f0b429}
+.pwd-meter-fill.strong{background:var(--ok)}
+.pwd-meter-fill.very-strong{background:#34c3c9}
+.pwd-meter-label{margin-top:8px;font-size:12.5px;font-weight:600;color:var(--text-2);display:flex;justify-content:space-between;align-items:center}
+.pwd-meter-label .pml-tag{font-weight:700}
+.pwd-meter-label .pml-tag.weak{color:var(--danger)}
+.pwd-meter-label .pml-tag.medium{color:#c98a10}
+.pwd-meter-label .pml-tag.strong{color:var(--ok)}
+.pwd-meter-label .pml-tag.very-strong{color:#1f9aa0}
+
 @media print {
   header, footer, .no-print, .toast { display: none !important; }
   @page { size: A4; margin: 10mm; }
