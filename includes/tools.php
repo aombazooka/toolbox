@@ -79,4 +79,13 @@ return [
         'cat'   => 'เครื่องคำนวณ',
         'login' => false,
     ],
+    [
+        'slug'  => 'random',
+        'title' => 'สุ่มรายชื่อ / วงล้อสุ่ม',
+        'desc'  => 'สุ่มรายชื่อ หมุนวงล้อสุ่ม สุ่มเลข หรือทอยลูกเต๋า/โยนเหรียญ ด้วยตัวสุ่มเข้ารหัสที่เป็นธรรม',
+        'href'  => 'random.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>',
+        'cat'   => 'ตัวช่วย & สุ่ม',
+        'login' => false,
+    ],
 ];
