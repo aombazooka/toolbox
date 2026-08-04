@@ -276,6 +276,13 @@
 .conv-swap-btn:hover{background:var(--accent-soft);color:var(--accent-strong);transform:rotate(180deg)}
 .conv-swap-btn svg{width:17px;height:17px}
 
+/* ---------- Personal income tax estimator (T13) ---------- */
+.tax-notice{display:flex;gap:10px;align-items:flex-start;margin:0 0 20px;padding:13px 16px;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:12px;color:var(--accent-ink);font-size:13px;line-height:1.6}
+:root[data-theme="dark"] .tax-notice{color:var(--text-2)}
+.tax-notice svg{width:19px;height:19px;flex-shrink:0;margin-top:1px;color:var(--accent-strong)}
+.tax-hero{font-family:'Inter';font-size:38px;font-weight:800;letter-spacing:-1px;text-align:center;color:var(--accent-strong);padding:10px 8px 4px}
+@media(max-width:480px){.tax-hero{font-size:28px}}
+
 @media print {
   header, footer, .no-print, .toast { display: none !important; }
   @page { size: A4; margin: 10mm; }

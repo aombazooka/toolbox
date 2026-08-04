@@ -133,4 +133,13 @@ return [
         'cat'   => 'เครื่องคำนวณ',
         'login' => false,
     ],
+    [
+        'slug'  => 'tax',
+        'title' => 'คำนวณภาษีเงินได้บุคคลธรรมดา',
+        'desc'  => 'ประมาณภาษีขั้นบันไดจากเงินได้และค่าลดหย่อน พร้อมตารางแยกตามขั้น',
+        'href'  => 'tax.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/><path d="M8 13h1.5M8 17h1.5M13 12v6M13 12c1.4 0 2.2.6 2.2 1.5S14.4 15 13 15c1.4 0 2.3.6 2.3 1.5S14.4 18 13 18" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'cat'   => 'เครื่องคำนวณ',
+        'login' => false,
+    ],
 ];
