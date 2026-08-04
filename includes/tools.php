@@ -142,4 +142,13 @@ return [
         'cat'   => 'เครื่องคำนวณ',
         'login' => false,
     ],
+    [
+        'slug'  => 'text-tools',
+        'title' => 'ชุดเครื่องมือข้อความ',
+        'desc'  => 'นับคำ/ตัวอักษร แปลงตัวพิมพ์ จัดระเบียบ เรียงบรรทัด แปลงเลขไทย↔อารบิก และตรวจเลขบัตรประชาชน',
+        'href'  => 'text-tools.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h11M4 18h16" stroke-linecap="round"/></svg>',
+        'cat'   => 'ตัวช่วย & สุ่ม',
+        'login' => false,
+    ],
 ];
