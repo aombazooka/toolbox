@@ -115,4 +115,13 @@ return [
         'cat'   => 'เครื่องคำนวณ',
         'login' => false,
     ],
+    [
+        'slug'  => 'promptpay',
+        'title' => 'QR พร้อมเพย์',
+        'desc'  => 'สร้าง QR โอนเงินพร้อมเพย์จากเบอร์โทรหรือเลขบัตรประชาชน ระบุจำนวนเงินได้',
+        'href'  => 'promptpay.php',
+        'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h2v2H8zM14 8h2v2h-2zM8 14h2v2H8z" stroke-linejoin="round"/><path d="M14 14h1.5v1.5H14zM15.5 15.5H17V17h-1.5zM14 17h1.5M17 14v1.5" stroke-linecap="round"/></svg>',
+        'cat'   => 'QR & ลิงก์',
+        'login' => false,
+    ],
 ];
