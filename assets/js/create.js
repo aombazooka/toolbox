@@ -6,7 +6,7 @@ const $ = id => document.getElementById(id);
 const S = {
   name: '', link: 'https://example.com/document', category: 'เอกสารทั่วไป',
   type: 'static', code: '',
-  dotColor: '#000000', bgColor: '#ffffff', dotType: 'rounded', ec: 'M',
+  dotColor: '#000000', bgColor: '#ffffff', dotType: 'square', ec: 'M',
   logo: null, logoSize: 40, size: 512, expiresAt: ''
 };
 let savedId = null;                 // id of the last saved record (null = unsaved)
@@ -120,7 +120,7 @@ function syncSwatch() { document.querySelectorAll('.sw').forEach(s => s.classLis
 
 /* ---- presets ---- */
 const presets = [
-  { n: 'มาตรฐาน', dot: '#000000', bg: '#ffffff', type: 'rounded' },
+  { n: 'มาตรฐาน', dot: '#000000', bg: '#ffffff', type: 'square' },
   { n: 'ส้มพาสเทล', dot: '#f4a15c', bg: '#ffffff', type: 'extra-rounded' },
   { n: 'เขียว', dot: '#30a46c', bg: '#ffffff', type: 'dots' },
   { n: 'กลางคืน', dot: '#e9ebf0', bg: '#16181e', type: 'classy' },

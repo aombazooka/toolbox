@@ -154,9 +154,9 @@ include __DIR__ . '/includes/header.php';
       <div class="field" style="margin-top:16px">
         <label class="lab">รูปแบบจุด</label>
         <div class="seg" id="dotstyle">
-          <button type="button" data-v="rounded" class="on">มน</button>
+          <button type="button" data-v="square" class="on">เหลี่ยม</button>
+          <button type="button" data-v="rounded">มน</button>
           <button type="button" data-v="dots">กลม</button>
-          <button type="button" data-v="square">เหลี่ยม</button>
           <button type="button" data-v="classy">คลาสสิก</button>
           <button type="button" data-v="extra-rounded">มนมาก</button>
         </div>
