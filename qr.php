@@ -1,43 +1,12 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
-require_installed();
-$isGuest = !is_logged_in();   // guests: create static QR + download only (never persisted, see api/save.php)
+// Fully client-side: create a static QR + download. No login, no editing, no DB.
+$isGuest = true;
 $active = 'qr';
-
 $edit = null;
-$editId = (int)($_GET['edit'] ?? 0);
-if ($editId > 0 && !$isGuest) {
-    // Admins may edit any user's QR (matches api/save.php & the history "view all" edit button).
-    if (is_admin()) {
-        $st = db()->prepare("SELECT * FROM qrcodes WHERE id = ? LIMIT 1");
-        $st->execute([$editId]);
-    } else {
-        $st = db()->prepare("SELECT * FROM qrcodes WHERE id = ? AND user_id = ? LIMIT 1");
-        $st->execute([$editId, uid()]);
-    }
-    $row = $st->fetch();
-    if ($row) {
-        $edit = [
-            'id'              => (int)$row['id'],
-            'name'            => $row['name'],
-            'category'        => $row['category'],
-            'type'            => $row['type'],
-            'destination_url' => $row['destination_url'],
-            'short_code'      => $row['short_code'],
-            'qr_data'         => $row['type'] === 'dynamic' ? dynamic_link($row['short_code']) : $row['destination_url'],
-            'style'           => $row['style_json'] ? json_decode($row['style_json'], true) : null,
-            'logo_data'       => $row['logo_data'],
-            'expires_at'      => $row['expires_at'],
-        ];
-    }
-}
+$categories = array_keys(default_categories());
 
-$catSt = db()->prepare("SELECT name FROM categories WHERE user_id = ? ORDER BY id");
-$catSt->execute([uid()]);
-$categories = $catSt->fetchAll(PDO::FETCH_COLUMN);
-if (!$categories) $categories = array_keys(default_categories());
-
-$page_title = $edit ? 'แก้ไข QR' : 'สร้าง QR';
+$page_title = 'สร้าง QR';
 $page_js = ['create.js'];
 $csrf = csrf_token();
 include __DIR__ . '/includes/header.php';

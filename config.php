@@ -3,12 +3,8 @@
 //  QR Studio — Configuration
 // ============================================================
 
-// --- Database (XAMPP defaults: user "root", empty password) ---
-define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'qrcode_studio');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_CHARSET', 'utf8mb4');
+// --- No database ---
+// This build is a fully client-side toolbox; there is no DB connection.
 
 // --- Base URL of this app ---
 // Used to build DYNAMIC QR redirect links (BASE_URL/r.php?c=CODE).

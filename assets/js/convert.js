@@ -1,4 +1,4 @@
-/* แปลงหน่วย · อุณหภูมิ · สกุลเงิน — ทำงานฝั่งเบราว์เซอร์ล้วน ยกเว้นสกุลเงินที่เรียก api/rates.php (แคชฝั่งเซิร์ฟเวอร์) */
+/* แปลงหน่วย · อุณหภูมิ · สกุลเงิน — ทำงานฝั่งเบราว์เซอร์ล้วน (สกุลเงินดึงเรตตรงจาก frankfurter.dev) */
 (function () {
   function byId(id) { return document.getElementById(id); }
 
@@ -247,7 +247,7 @@
     currencyStatusEl.classList.toggle('hidden', key !== 'currency');
 
     if (key === 'currency') {
-      catNoteEl.textContent = 'ดึงอัตราแลกเปลี่ยนล่าสุดจาก frankfurter.app ผ่านตัวกลางฝั่งเซิร์ฟเวอร์ของเรา (แคชไว้ 1 วัน) — ใช้เพื่อการอ้างอิงเท่านั้น ไม่ใช่อัตราซื้อขายจริงจากธนาคาร/ร้านแลกเงิน';
+      catNoteEl.textContent = 'ดึงอัตราแลกเปลี่ยนล่าสุดตรงจาก frankfurter.dev — ใช้เพื่อการอ้างอิงเท่านั้น ไม่ใช่อัตราซื้อขายจริงจากธนาคาร/ร้านแลกเงิน';
       if (!cat.loaded) { loadCurrency(); return; }
       buildUnitSelect(fromUnitEl, cat.units, cat.def.from);
       buildUnitSelect(toUnitEl, cat.units, cat.def.to);
@@ -275,8 +275,12 @@
     gridEl.innerHTML = '';
     gridEmptyEl.classList.add('hidden');
     try {
-      const res = await fetch('api/rates.php');
-      const data = await res.json();
+      // ดึงอัตราแลกเปลี่ยนตรงจาก frankfurter.dev (ส่ง CORS header เรียกจากเบราว์เซอร์ได้)
+      const res = await fetch('https://api.frankfurter.dev/v1/latest?base=THB');
+      const raw = await res.json();
+      const data = (raw && raw.rates)
+        ? { ok: true, base: raw.base || 'THB', date: raw.date, rates: raw.rates, cached: false, fetched_at: '', stale: false }
+        : { ok: false };
       if (!data || !data.ok) {
         currencyStatusEl.textContent = (data && data.error) ? data.error : 'ดึงอัตราแลกเปลี่ยนไม่สำเร็จ กรุณาลองใหม่ภายหลัง';
         if (window.toast) window.toast('ดึงอัตราแลกเปลี่ยนไม่สำเร็จ', 'err');
@@ -297,7 +301,7 @@
       lastEdited = 'from';
       renderCurrent();
 
-      let msg = 'อัตราอ้างอิงวันที่ ' + data.date + (data.cached ? ' (จากแคช อัปเดตเมื่อ ' + data.fetched_at + ')' : ' (ดึงสดจาก frankfurter.app เมื่อ ' + data.fetched_at + ')');
+      let msg = 'อัตราอ้างอิงล่าสุดวันที่ ' + data.date + ' (ดึงสดจาก frankfurter.dev)';
       if (data.stale) msg += ' — เครือข่ายขัดข้องขณะนี้ ใช้ข้อมูลแคชเก่าไปก่อน';
       currencyStatusEl.textContent = msg;
     } catch (e) {

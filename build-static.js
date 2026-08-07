@@ -5,7 +5,7 @@
  *  จาก http://localhost/qrcode/<page> แล้ว post-process ให้เป็นไฟล์ static
  *  เขียนลงโฟลเดอร์ docs/ (GitHub Pages เสิร์ฟจาก /docs ได้)
  *
- *  ต้องรัน XAMPP (Apache + MySQL) อยู่ก่อน:  node build-static.js
+ *  ต้องรัน Apache อยู่ก่อน (ไม่ต้องใช้ MySQL แล้ว — เว็บ PHP เป็น DB-free):  node build-static.js
  *  เครื่องมือที่ตัดออก: ย่อลิงก์ (ต้องมี backend) — เก็บเฉพาะ client-side ล้วน
  * ============================================================ */
 const fs = require('fs');
@@ -52,46 +52,16 @@ async function fetchPage(name) {
   return await res.text();
 }
 
-function buildStaticConvertJs(src) {
-  // เปลี่ยนจากเรียก proxy api/rates.php -> ดึงตรงจาก frankfurter.app (รองรับ CORS)
-  // ใช้ frankfurter.dev (endpoint นี้ส่ง CORS header ถูกต้อง เรียกตรงจากเบราว์เซอร์ได้
-  //  ต่างจาก frankfurter.app ที่ 301 redirect แล้ว CORS ล้ม) · param คือ base= ไม่ใช่ from=
-  src = src.replace(
-    "      const res = await fetch('api/rates.php');\n      const data = await res.json();",
-    "      const res = await fetch('https://api.frankfurter.dev/v1/latest?base=THB');\n" +
-    "      const raw = await res.json();\n" +
-    "      const data = (raw && raw.rates)\n" +
-    "        ? { ok: true, base: raw.base || 'THB', date: raw.date, rates: raw.rates, cached: false, fetched_at: '', stale: false }\n" +
-    "        : { ok: false };"
-  );
-  // ข้อความสถานะ/โน้ต: ตัดคำที่พูดถึง "ตัวกลางฝั่งเซิร์ฟเวอร์/แคช 1 วัน" ออก
-  src = src.replace(
-    /catNoteEl\.textContent = 'ดึงอัตราแลกเปลี่ยน[^']*';/,
-    "catNoteEl.textContent = 'ดึงอัตราแลกเปลี่ยนล่าสุดตรงจาก frankfurter.dev — ใช้เพื่อการอ้างอิงเท่านั้น ไม่ใช่อัตราซื้อขายจริงจากธนาคาร/ร้านแลกเงิน';"
-  );
-  src = src.replace(
-    /let msg = 'อัตราอ้างอิงวันที่ ' \+ data\.date[^;]*;/,
-    "let msg = 'อัตราอ้างอิงล่าสุดวันที่ ' + data.date + ' (ดึงสดจาก frankfurter.dev)';"
-  );
-  return src;
-}
-
 async function main() {
   // เตรียมโฟลเดอร์ docs/
   fs.rmSync(OUT, { recursive: true, force: true });
   fs.mkdirSync(OUT, { recursive: true });
 
-  // คัดลอก assets ทั้งหมด (css/js/vendor)
+  // คัดลอก assets ทั้งหมด (css/js/vendor) — convert.js ต้นทางดึงเรตตรงจาก frankfurter.dev อยู่แล้ว
   fs.cpSync(path.join(__dirname, 'assets'), path.join(OUT, 'assets'), { recursive: true });
 
-  // ทำ convert.js เวอร์ชัน static ทับไฟล์ที่คัดลอกมา
-  const convSrc = fs.readFileSync(path.join(__dirname, 'assets/js/convert.js'), 'utf8');
-  fs.writeFileSync(path.join(OUT, 'assets/js/convert.js'), buildStaticConvertJs(convSrc));
-
-  // ลบ JS/vendor ของฟีเจอร์ที่ตัดออก (บัญชี/ประวัติ/ย่อลิงก์/นำเข้า Excel) — ไม่มีหน้า static ไหนโหลด
-  ['analytics.js', 'bulk.js', 'history.js', 'print.js', 'settings.js', 'shorten.js', 'users.js']
-    .forEach(f => fs.rmSync(path.join(OUT, 'assets/js', f), { force: true }));
-  fs.rmSync(path.join(OUT, 'assets/vendor/xlsx.full.min.js'), { force: true }); // ใช้เฉพาะนำเข้า Excel (ตัดออก)
+  // xlsx ใช้เฉพาะนำเข้า Excel (ฟีเจอร์ที่ตัดออก) — ไม่มีหน้า static ไหนโหลด
+  fs.rmSync(path.join(OUT, 'assets/vendor/xlsx.full.min.js'), { force: true });
 
   // .nojekyll เพื่อไม่ให้ GitHub Pages รัน Jekyll (กันไฟล์/โฟลเดอร์บางชื่อโดนซ่อน)
   fs.writeFileSync(path.join(OUT, '.nojekyll'), '');

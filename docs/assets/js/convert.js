@@ -1,4 +1,4 @@
-/* แปลงหน่วย · อุณหภูมิ · สกุลเงิน — ทำงานฝั่งเบราว์เซอร์ล้วน ยกเว้นสกุลเงินที่เรียก api/rates.php (แคชฝั่งเซิร์ฟเวอร์) */
+/* แปลงหน่วย · อุณหภูมิ · สกุลเงิน — ทำงานฝั่งเบราว์เซอร์ล้วน (สกุลเงินดึงเรตตรงจาก frankfurter.dev) */
 (function () {
   function byId(id) { return document.getElementById(id); }
 
@@ -275,6 +275,7 @@
     gridEl.innerHTML = '';
     gridEmptyEl.classList.add('hidden');
     try {
+      // ดึงอัตราแลกเปลี่ยนตรงจาก frankfurter.dev (ส่ง CORS header เรียกจากเบราว์เซอร์ได้)
       const res = await fetch('https://api.frankfurter.dev/v1/latest?base=THB');
       const raw = await res.json();
       const data = (raw && raw.rates)

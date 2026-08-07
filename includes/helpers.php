@@ -64,20 +64,7 @@ function short_link(string $code): string {
     return rtrim(BASE_URL, '/') . '/s.php?c=' . $code;
 }
 
-/** id of the system "guest" user that owns QR codes created without login (0 if none). */
-function guest_user_id(): int {
-    static $id = null;
-    if ($id === null) {
-        try {
-            $id = (int)(db()->query("SELECT id FROM users WHERE username = '__guest__' LIMIT 1")->fetchColumn() ?: 0);
-        } catch (Throwable $e) {
-            $id = 0;
-        }
-    }
-    return $id;
-}
-
-/** Default category set (name => color) seeded for every new user. */
+/** Default category set (name => color). */
 function default_categories(): array {
     return [
         'เอกสารทั่วไป'      => '#8b93a7',
