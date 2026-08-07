@@ -35,6 +35,7 @@ include __DIR__ . '/includes/header.php';
         <button type="button" data-v="img2pdf" class="on">รูป→PDF</button>
         <button type="button" data-v="merge">รวม PDF</button>
         <button type="button" data-v="split">แยกหน้า</button>
+        <button type="button" data-v="extract">ดึงหน้า</button>
       </div>
     </div>
 
@@ -79,7 +80,7 @@ include __DIR__ . '/includes/header.php';
       </button>
     </div>
 
-    <!-- Tab: แยกหน้า -->
+    <!-- Tab: แยกหน้า (แยกเป็นไฟล์ละหน้า → ZIP) -->
     <div class="form-section tab-panel hidden" id="tab-split">
       <div id="sp-drop" class="img-drop">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 3v5h5" stroke-linejoin="round"/></svg>
@@ -89,24 +90,45 @@ include __DIR__ . '/includes/header.php';
       </div>
       <div id="sp-list" class="img-list"></div>
 
-      <div style="padding:18px 0 0">
-        <div class="sec-title" style="margin-bottom:10px">รูปแบบการแยก</div>
-        <div class="seg" id="sp-mode">
-          <button type="button" data-v="separate" class="on">แยกเป็นไฟล์ละหน้า (ZIP)</button>
-          <button type="button" data-v="combine">รวมหน้าที่เลือกเป็นไฟล์เดียว</button>
-        </div>
-        <div class="hint" id="sp-mode-hint">"แยกเป็นไฟล์ละหน้า" จะได้ PDF แยกไฟล์ทีละหน้า รวมมาเป็น .zip · "รวมเป็นไฟล์เดียว" จะได้ PDF ไฟล์เดียวที่มีเฉพาะหน้าที่เลือก</div>
-      </div>
-
       <div class="field" style="margin-top:16px">
         <label class="lab">ช่วงหน้าที่ต้องการ <span style="color:var(--text-3);font-weight:400">(เว้นว่าง = ทุกหน้า)</span></label>
         <input class="input" id="sp-range" placeholder="เช่น 1-3,5 หรือเว้นว่างเพื่อแยกทุกหน้า" disabled>
         <div class="hint" id="sp-hint">เลือกไฟล์ PDF ก่อนเพื่อดูจำนวนหน้าทั้งหมด — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5 หรือเว้นว่างเพื่อแยกทุกหน้า</div>
       </div>
 
-      <button type="button" class="btn btn-primary btn-block" id="sp-btn" disabled style="margin-top:6px">
+      <div class="hint" style="margin:6px 0 0;padding:10px 12px;background:var(--surface-3);border-radius:10px">
+        โหมดนี้จะแยกแต่ละหน้าออกเป็น PDF ไฟล์ละหน้า แล้วรวมมาให้เป็นไฟล์ .zip · หากต้องการดึงบางหน้ามารวมเป็น PDF ไฟล์เดียว ให้ใช้แท็บ "ดึงหน้า"
+      </div>
+
+      <button type="button" class="btn btn-primary btn-block" id="sp-btn" disabled style="margin-top:12px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H6a2 2 0 00-2 2v14a2 2 0 002 2h3M15 3h3a2 2 0 012 2v14a2 2 0 01-2 2h-3M9 3v18" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        แยกหน้า
+        แยกเป็นไฟล์ละหน้า (ZIP)
+      </button>
+    </div>
+
+    <!-- Tab: ดึงหน้า (เลือกบางหน้า → รวมเป็น PDF ไฟล์เดียว) -->
+    <div class="form-section tab-panel hidden" id="tab-extract">
+      <div id="ex-drop" class="img-drop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 3v5h5" stroke-linejoin="round"/></svg>
+        <div class="t">ลากไฟล์ PDF 1 ไฟล์มาวางที่นี่ หรือ <span class="link">คลิกเพื่อเลือกไฟล์</span></div>
+        <div class="s">เลือกได้ทีละ 1 ไฟล์</div>
+        <input type="file" id="ex-input" accept="application/pdf,.pdf" hidden>
+      </div>
+      <div id="ex-list" class="img-list"></div>
+
+      <div class="field" style="margin-top:16px">
+        <label class="lab">หน้าที่ต้องการดึง <span style="color:var(--text-3);font-weight:400">(เว้นว่าง = ทุกหน้า)</span></label>
+        <input class="input" id="ex-range" placeholder="เช่น 1-3,5" disabled>
+        <div class="hint" id="ex-hint">เลือกไฟล์ PDF ก่อนเพื่อดูจำนวนหน้าทั้งหมด — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5</div>
+      </div>
+
+      <div class="hint" style="margin:6px 0 0;padding:10px 12px;background:var(--surface-3);border-radius:10px">
+        โหมดนี้จะดึงเฉพาะหน้าที่เลือกมารวมเป็น PDF ไฟล์เดียว (ตามลำดับหน้าในไฟล์เดิม) · หากต้องการแยกทุกหน้าเป็นไฟล์แยก ให้ใช้แท็บ "แยกหน้า"
+      </div>
+
+      <button type="button" class="btn btn-primary btn-block" id="ex-btn" disabled style="margin-top:12px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/></svg>
+        ดึงหน้าที่เลือกเป็นไฟล์เดียว
       </button>
 
       <div class="hint" style="margin-top:14px;padding:10px 12px;background:var(--surface-3);border-radius:10px">

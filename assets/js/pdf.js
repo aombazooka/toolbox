@@ -13,11 +13,9 @@ const { PDFDocument } = window.PDFLib || {};
 let uidCounter = 0;
 let activeTab = 'img2pdf';
 let pageSizeMode = 'a4';
-let splitMode = 'separate'; // 'separate' = one PDF per page (ZIP) · 'combine' = selected pages into one PDF
 
 const i2p = { items: [] };   // [{id,file,name,size,previewUrl,img}]
 const mg  = { items: [] };   // [{id,file,name,size}]
-const sp  = { file: null, name: '', size: 0, totalPages: 0, loading: false };
 
 let result = null; // { blob, url, name, pages, size }
 
@@ -291,77 +289,88 @@ function parsePageRanges(input, maxPage) {
   return result;
 }
 
-function renderSp() {
-  const wrap = $('sp-list');
-  wrap.innerHTML = '';
-  const rangeInput = $('sp-range');
-  const btn = $('sp-btn');
-  const hint = $('sp-hint');
-  if (!sp.file) {
-    rangeInput.disabled = true;
-    btn.disabled = true;
-    hint.textContent = 'เลือกไฟล์ PDF ก่อนเพื่อดูจำนวนหน้าทั้งหมด — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5';
-    return;
-  }
-  const row = document.createElement('div');
-  row.className = 'img-item';
-  const thumb = document.createElement('div');
-  thumb.className = 'ii-thumb';
-  thumb.appendChild(iconSvg(ICO_PDF));
-  row.appendChild(thumb);
-  const body = document.createElement('div');
-  body.className = 'ii-body';
-  const name = document.createElement('div');
-  name.className = 'ii-name';
-  name.textContent = sp.name;
-  body.appendChild(name);
-  const meta = document.createElement('div');
-  meta.className = 'ii-meta';
-  meta.textContent = sp.loading ? 'กำลังอ่านไฟล์...' : formatBytes(sp.size) + (sp.totalPages ? ' · ทั้งหมด ' + sp.totalPages + ' หน้า' : '');
-  body.appendChild(meta);
-  row.appendChild(body);
-  const acts = document.createElement('div');
-  acts.className = 'ii-acts';
-  const rmBtn = document.createElement('button');
-  rmBtn.type = 'button';
-  rmBtn.className = 'ii-remove';
-  rmBtn.title = 'ลบไฟล์';
-  rmBtn.appendChild(iconSvg(ICO_TRASH));
-  rmBtn.onclick = () => { sp.file = null; sp.totalPages = 0; renderSp(); };
-  acts.appendChild(rmBtn);
-  row.appendChild(acts);
-  wrap.appendChild(row);
+/* ตัวจัดการ "แผงไฟล์ PDF เดียว + ช่วงหน้า" ใช้ร่วมกันทั้งแท็บแยกหน้า (sp) และดึงหน้า (ex)
+ * รับ prefix ของ id ใน HTML: <prefix>-list, <prefix>-range, <prefix>-btn, <prefix>-hint */
+function makePdfPanel(prefix) {
+  const ctrl = { file: null, name: '', size: 0, totalPages: 0, loading: false };
 
-  if (sp.loading) {
-    rangeInput.disabled = true;
-    btn.disabled = true;
-    hint.textContent = 'กำลังอ่านไฟล์ PDF...';
-  } else {
-    rangeInput.disabled = false;
-    hint.textContent = 'ไฟล์นี้มีทั้งหมด ' + sp.totalPages + ' หน้า — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5 หรือเว้นว่างเพื่อแยกทุกหน้า';
-    btn.disabled = false;
-  }
+  ctrl.render = function () {
+    const wrap = $(prefix + '-list');
+    wrap.innerHTML = '';
+    const rangeInput = $(prefix + '-range');
+    const btn = $(prefix + '-btn');
+    const hint = $(prefix + '-hint');
+    if (!ctrl.file) {
+      rangeInput.disabled = true;
+      btn.disabled = true;
+      hint.textContent = 'เลือกไฟล์ PDF ก่อนเพื่อดูจำนวนหน้าทั้งหมด — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5';
+      return;
+    }
+    const row = document.createElement('div');
+    row.className = 'img-item';
+    const thumb = document.createElement('div');
+    thumb.className = 'ii-thumb';
+    thumb.appendChild(iconSvg(ICO_PDF));
+    row.appendChild(thumb);
+    const body = document.createElement('div');
+    body.className = 'ii-body';
+    const name = document.createElement('div');
+    name.className = 'ii-name';
+    name.textContent = ctrl.name;
+    body.appendChild(name);
+    const meta = document.createElement('div');
+    meta.className = 'ii-meta';
+    meta.textContent = ctrl.loading ? 'กำลังอ่านไฟล์...' : formatBytes(ctrl.size) + (ctrl.totalPages ? ' · ทั้งหมด ' + ctrl.totalPages + ' หน้า' : '');
+    body.appendChild(meta);
+    row.appendChild(body);
+    const acts = document.createElement('div');
+    acts.className = 'ii-acts';
+    const rmBtn = document.createElement('button');
+    rmBtn.type = 'button';
+    rmBtn.className = 'ii-remove';
+    rmBtn.title = 'ลบไฟล์';
+    rmBtn.appendChild(iconSvg(ICO_TRASH));
+    rmBtn.onclick = () => { ctrl.file = null; ctrl.totalPages = 0; ctrl.render(); };
+    acts.appendChild(rmBtn);
+    row.appendChild(acts);
+    wrap.appendChild(row);
+
+    if (ctrl.loading) {
+      rangeInput.disabled = true;
+      btn.disabled = true;
+      hint.textContent = 'กำลังอ่านไฟล์ PDF...';
+    } else {
+      rangeInput.disabled = false;
+      hint.textContent = 'ไฟล์นี้มีทั้งหมด ' + ctrl.totalPages + ' หน้า — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5 หรือเว้นว่างเพื่อทำทุกหน้า';
+      btn.disabled = false;
+    }
+  };
+
+  ctrl.setFile = async function (file) {
+    if (!isPdfFile(file)) { toast('กรุณาเลือกไฟล์ PDF เท่านั้น', 'err'); return; }
+    ctrl.file = file;
+    ctrl.name = file.name;
+    ctrl.size = file.size;
+    ctrl.totalPages = 0;
+    ctrl.loading = true;
+    ctrl.render();
+    try {
+      const bytes = await file.arrayBuffer();
+      const doc = await PDFDocument.load(bytes, { ignoreEncryption: true });
+      ctrl.totalPages = doc.getPageCount();
+    } catch (e) {
+      toast('เปิดไฟล์ PDF ไม่สำเร็จ (ไฟล์อาจเสียหายหรือมีรหัสผ่าน)', 'err');
+      ctrl.file = null;
+    }
+    ctrl.loading = false;
+    ctrl.render();
+  };
+
+  return ctrl;
 }
 
-async function setSplitFile(file) {
-  if (!isPdfFile(file)) { toast('กรุณาเลือกไฟล์ PDF เท่านั้น', 'err'); return; }
-  sp.file = file;
-  sp.name = file.name;
-  sp.size = file.size;
-  sp.totalPages = 0;
-  sp.loading = true;
-  renderSp();
-  try {
-    const bytes = await file.arrayBuffer();
-    const doc = await PDFDocument.load(bytes, { ignoreEncryption: true });
-    sp.totalPages = doc.getPageCount();
-  } catch (e) {
-    toast('เปิดไฟล์ PDF ไม่สำเร็จ (ไฟล์อาจเสียหายหรือมีรหัสผ่าน)', 'err');
-    sp.file = null;
-  }
-  sp.loading = false;
-  renderSp();
-}
+const sp = makePdfPanel('sp'); // แท็บ "แยกหน้า" → ไฟล์ละหน้า (ZIP)
+const ex = makePdfPanel('ex'); // แท็บ "ดึงหน้า" → รวมหน้าที่เลือกเป็นไฟล์เดียว
 
 function bytesToBlob(outBytes, type) {
   return new Blob([outBytes.buffer.slice(outBytes.byteOffset, outBytes.byteOffset + outBytes.byteLength)], { type: type });
@@ -462,7 +471,7 @@ async function runWithButton(btn, fn) {
 /* ---------- tab switching ---------- */
 function switchTab(tab) {
   activeTab = tab;
-  ['img2pdf', 'merge', 'split'].forEach(t => {
+  ['img2pdf', 'merge', 'split', 'extract'].forEach(t => {
     $('tab-' + t).classList.toggle('hidden', t !== tab);
   });
 }
@@ -480,7 +489,6 @@ function bindSeg(containerId, onChange) {
 
 bindSeg('pdf-tabs', switchTab);
 bindSeg('i2p-pagesize', v => { pageSizeMode = v; });
-bindSeg('sp-mode', v => { splitMode = v; });
 
 /* ---------- drop zone wiring ---------- */
 function wireDropZone(dropId, inputId, onFiles) {
@@ -504,12 +512,12 @@ function wireDropZone(dropId, inputId, onFiles) {
 
 wireDropZone('i2p-drop', 'i2p-input', addImages);
 wireDropZone('mg-drop', 'mg-input', addMergeFiles);
-wireDropZone('sp-drop', 'sp-input', fl => setSplitFile(fl[0]));
+wireDropZone('sp-drop', 'sp-input', fl => sp.setFile(fl[0]));
+wireDropZone('ex-drop', 'ex-input', fl => ex.setFile(fl[0]));
 
-$('sp-range').addEventListener('input', () => {
-  // เว้นว่างได้ (= ทุกหน้า) ขอแค่มีไฟล์และอ่านไฟล์เสร็จแล้ว
-  $('sp-btn').disabled = !sp.file || sp.loading;
-});
+// เว้นว่างได้ (= ทุกหน้า) ขอแค่มีไฟล์และอ่านไฟล์เสร็จแล้ว
+$('sp-range').addEventListener('input', () => { $('sp-btn').disabled = !sp.file || sp.loading; });
+$('ex-range').addEventListener('input', () => { $('ex-btn').disabled = !ex.file || ex.loading; });
 
 /* ---------- action buttons ---------- */
 $('i2p-btn').onclick = () => runWithButton($('i2p-btn'), async () => {
@@ -528,19 +536,22 @@ $('mg-btn').onclick = () => runWithButton($('mg-btn'), async () => {
   toast('รวม PDF สำเร็จ (' + pages + ' หน้า)');
 });
 
+// แท็บ "แยกหน้า" → แยกเป็น PDF ไฟล์ละหน้า รวมมาเป็น .zip
 $('sp-btn').onclick = () => runWithButton($('sp-btn'), async () => {
   if (!sp.file) { toast('กรุณาเลือกไฟล์ PDF ก่อน', 'err'); return; }
   const base = (sp.name || 'document').replace(/\.pdf$/i, '');
-  const range = $('sp-range').value;
-  if (splitMode === 'combine') {
-    const { blob, count } = await splitPdfCombine(sp.file, range);
-    showResult(blob, base + '_extract.pdf', count);
-    toast('รวมหน้าที่เลือกสำเร็จ (' + count + ' หน้า)');
-  } else {
-    const { blob, count } = await splitPdfSeparate(sp.file, range, base);
-    showResult(blob, base + '_pages.zip', count, { zip: true });
-    toast('แยกหน้าสำเร็จ — ได้ ' + count + ' ไฟล์ (ไฟล์ละหน้า)');
-  }
+  const { blob, count } = await splitPdfSeparate(sp.file, $('sp-range').value, base);
+  showResult(blob, base + '_pages.zip', count, { zip: true });
+  toast('แยกหน้าสำเร็จ — ได้ ' + count + ' ไฟล์ (ไฟล์ละหน้า)');
+});
+
+// แท็บ "ดึงหน้า" → เลือกเฉพาะบางหน้ารวมเป็น PDF ไฟล์เดียว
+$('ex-btn').onclick = () => runWithButton($('ex-btn'), async () => {
+  if (!ex.file) { toast('กรุณาเลือกไฟล์ PDF ก่อน', 'err'); return; }
+  const base = (ex.name || 'document').replace(/\.pdf$/i, '');
+  const { blob, count } = await splitPdfCombine(ex.file, $('ex-range').value);
+  showResult(blob, base + '_extract.pdf', count);
+  toast('ดึงหน้าที่เลือกสำเร็จ (' + count + ' หน้า)');
 });
 
 $('btn-download').onclick = () => {
