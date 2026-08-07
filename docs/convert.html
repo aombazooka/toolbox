@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>แปลงหน่วย · อุณหภูมิ · สกุลเงิน · Toolbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css?v=1784599569">
+<link rel="stylesheet" href="assets/css/app-extra.css?v=1785815909">
+<script src="assets/vendor/qr-code-styling.js?v=1783932437"></script>
+</head>
+<body>
+<header>
+  <div class="head-inner">
+    <a class="brand" href="index.html">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h6v6H4V4zM14 4h6v6h-6V4zM4 14h6v6H4v-6z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M14 14h2.5v2.5H14V14zM17.5 17.5H20V20h-2.5v-2.5zM14 20h2.5M20 14v2.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="brand-name">Toolbox<small>เครื่องมือออนไลน์ฟรี</small></div>
+    </a>
+    <nav>
+      <a class="tab " href="index.html">ทั้งหมด</a>
+      <details class="nav-drop">
+        <summary class="tab active">
+          เครื่องมือ
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;flex-shrink:0"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="nav-drop-menu">
+                    <a class="nav-drop-item" href="qr.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6v6H4V4zM14 4h6v6h-6V4zM4 14h6v6H4v-6z" stroke-linejoin="round"/><path d="M14 14h2.5v2.5H14V14zM17.5 17.5H20V20h-2.5v-2.5zM14 20h2.5M20 14v2.5" stroke-linecap="round"/></svg><span>สร้าง QR Code</span></a>
+                    
+                    <a class="nav-drop-item" href="qr-presets.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M6 16c.5-2 2-3 2.5-3s2 1 2.5 3M13 9h5M13 13h5" stroke-linecap="round"/></svg><span>QR สำเร็จรูป</span></a>
+                    <a class="nav-drop-item" href="image.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21" stroke-linecap="round" stroke-linejoin="round"/></svg><span>ลดขนาด/แปลงรูปภาพ</span></a>
+                    <a class="nav-drop-item" href="pdf.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg><span>รูป→PDF / รวม / แยกหน้า</span></a>
+                    <a class="nav-drop-item" href="calc-loan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" stroke-linecap="round"/></svg><span>คำนวณผ่อน/สินเชื่อ</span></a>
+                    <a class="nav-drop-item" href="calc.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6" stroke-linecap="round"/><path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01" stroke-linecap="round"/></svg><span>ชุดเครื่องคำนวณ</span></a>
+                    <a class="nav-drop-item" href="random.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg><span>สุ่มรายชื่อ / วงล้อสุ่ม</span></a>
+                    <a class="nav-drop-item" href="password.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"/></svg><span>สร้างรหัสผ่านปลอดภัย</span></a>
+                    <a class="nav-drop-item" href="date-tools.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke-linecap="round"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-linecap="round"/></svg><span>อายุ / นับวัน / พ.ศ.-ค.ศ.</span></a>
+                    <a class="nav-drop-item" href="convert.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 9l3-3M4 9l3 3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 15H4M20 15l-3-3M20 15l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>แปลงหน่วย/อุณหภูมิ/สกุลเงิน</span></a>
+                    <a class="nav-drop-item" href="promptpay.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h2v2H8zM14 8h2v2h-2zM8 14h2v2H8z" stroke-linejoin="round"/><path d="M14 14h1.5v1.5H14zM15.5 15.5H17V17h-1.5zM14 17h1.5M17 14v1.5" stroke-linecap="round"/></svg><span>QR พร้อมเพย์</span></a>
+                    <a class="nav-drop-item" href="bahttext.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 9v.01M18 9v.01M6 15v.01M18 15v.01" stroke-linecap="round"/></svg><span>อ่านจำนวนเงินเป็นตัวอักษรไทย</span></a>
+                    <a class="nav-drop-item" href="tax.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/><path d="M8 13h1.5M8 17h1.5M13 12v6M13 12c1.4 0 2.2.6 2.2 1.5S14.4 15 13 15c1.4 0 2.3.6 2.3 1.5S14.4 18 13 18" stroke-linecap="round" stroke-linejoin="round"/></svg><span>คำนวณภาษีเงินได้บุคคลธรรมดา</span></a>
+                    <a class="nav-drop-item" href="text-tools.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h11M4 18h16" stroke-linecap="round"/></svg><span>ชุดเครื่องมือข้อความ</span></a>
+                    <a class="nav-drop-item nav-drop-all" href="index.html">ดูเครื่องมือทั้งหมด →</a>
+        </div>
+      </details>
+          </nav>
+    <div class="head-right">
+      <button class="icon-btn" id="theme-btn" title="สลับธีม">
+        <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+            
+          </div>
+  </div>
+</header>
+<main>
+<div class="page-head">
+  <div class="page-head-ico">
+    <div class="ph-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 9l3-3M4 9l3 3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 15H4M20 15l-3-3M20 15l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <h1>แปลงหน่วย · อุณหภูมิ · สกุลเงิน</h1>
+      <p>ความยาว น้ำหนัก พื้นที่ ปริมาตร ความเร็ว ข้อมูล เวลา อุณหภูมิ และสกุลเงิน — แปลงสดทันทีที่พิมพ์</p>
+    </div>
+  </div>
+</div>
+
+<div class="loan-grid">
+  <!-- INPUT -->
+  <div class="card">
+    <div class="form-section">
+      <div class="hint" style="display:flex;gap:8px;align-items:flex-start;margin-bottom:16px;padding:10px 12px;background:var(--surface-3);border-radius:10px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;margin-top:1px"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/></svg>
+        <span>หน่วยทั่วไปคำนวณในเบราว์เซอร์ของคุณล้วนๆ ไม่ส่งข้อมูลขึ้นเซิร์ฟเวอร์ — ยกเว้นสกุลเงินที่ต้องดึงอัตราแลกเปลี่ยนผ่านตัวกลางของเราเอง (ไม่เชื่อมต่อ frankfurter.app ตรงจากเบราว์เซอร์คุณ)</span>
+      </div>
+
+      <div class="sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        หมวดหมู่
+      </div>
+      <div class="seg" id="cat-tabs">
+        <button type="button" data-v="length" class="on">ความยาว</button>
+        <button type="button" data-v="weight">น้ำหนัก</button>
+        <button type="button" data-v="area">พื้นที่</button>
+        <button type="button" data-v="volume">ปริมาตร</button>
+        <button type="button" data-v="speed">ความเร็ว</button>
+        <button type="button" data-v="digital">ข้อมูล</button>
+        <button type="button" data-v="time">เวลา</button>
+        <button type="button" data-v="temperature">อุณหภูมิ</button>
+        <button type="button" data-v="currency">สกุลเงิน</button>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="hint" id="cat-note" style="margin-bottom:16px"></div>
+
+      <div class="field">
+        <label class="lab">จาก</label>
+        <div class="conv-pair">
+          <input class="input" id="from-value" inputmode="decimal" value="1">
+          <select class="input" id="from-unit"></select>
+        </div>
+      </div>
+
+      <div class="conv-swap-wrap">
+        <button type="button" class="conv-swap-btn" id="swap-btn" title="สลับหน่วย">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3v14M17 17l-4-4M17 17l4-4" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 21V7M7 7L3 11M7 7l4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="field">
+        <label class="lab">เป็น</label>
+        <div class="conv-pair">
+          <input class="input" id="to-value" inputmode="decimal" value="">
+          <select class="input" id="to-unit"></select>
+        </div>
+      </div>
+
+      <div class="hint hidden" id="currency-status" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="preview-wrap">
+    <div class="card card-pad">
+      <div class="sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        เทียบกับหน่วยอื่นในหมวดนี้
+      </div>
+      <div class="stats" id="all-units-grid"></div>
+      <div class="no-result hidden" id="all-units-empty">กรอกค่าด้านซ้ายเพื่อดูการแปลงหน่วย</div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.APP = {};
+</script>
+</main>
+<footer>Toolbox · เครื่องมือออนไลน์ ฟรี ใช้ง่าย ไม่ต้องล็อกอิน</footer>
+<div class="toast" id="toast"></div>
+<script>
+/* ---- theme (persisted) ---- */
+(function () {
+  const root = document.documentElement, btn = document.getElementById('theme-btn');
+  const sun  = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  const moon = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
+  const icon = document.getElementById('theme-icon');
+  function paint() { if (icon) icon.innerHTML = root.getAttribute('data-theme') === 'dark' ? moon : sun; }
+  const saved = localStorage.getItem('qrs-theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  paint();
+  if (btn) btn.onclick = () => {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    localStorage.setItem('qrs-theme', dark ? 'light' : 'dark');
+    paint();
+  };
+})();
+/* ---- close the "เครื่องมือ" nav dropdown when clicking outside it ---- */
+document.addEventListener('click', function (e) {
+  document.querySelectorAll('.nav-drop[open]').forEach(function (d) {
+    if (!d.contains(e.target)) d.removeAttribute('open');
+  });
+});
+/* ---- toast helper ---- */
+window.toast = function (msg, type) {
+  const t = document.getElementById('toast');
+  const ok   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const err  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01" stroke-linecap="round"/></svg>';
+  t.className = 'toast show ' + (type || '');
+  t.innerHTML = (type === 'err' ? err : ok) + '<span></span>';
+  t.querySelector('span').textContent = msg;
+  clearTimeout(window._toastT);
+  window._toastT = setTimeout(() => t.classList.remove('show'), 2600);
+};
+</script>
+<script src="assets/js/convert.js?v=1784971166"></script>
+</body>
+</html>
