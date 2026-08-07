@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>คู่มือการใช้งาน · Toolbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css?v=1784599569">
+<link rel="stylesheet" href="assets/css/app-extra.css?v=1785815909">
+<style>
+/* ---- guide-specific layout (ใช้ตัวแปรธีมเดิม รองรับ light/dark) ---- */
+.guide-wrap{max-width:920px;margin:0 auto}
+.guide-intro{color:var(--text-2);font-size:15px;line-height:1.7;margin:2px 0 22px}
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px;margin-bottom:30px}
+.toc a{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text);font-size:13.5px;font-weight:500;text-decoration:none;transition:.13s}
+.toc a:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateY(-1px)}
+.toc a svg{width:18px;height:18px;color:var(--accent-strong);flex-shrink:0}
+.g-cat{font-size:13px;font-weight:700;color:var(--text-3);letter-spacing:.04em;text-transform:uppercase;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.g-tool{margin-bottom:16px;scroll-margin-top:80px}
+.g-tool .card-pad{padding:20px 22px}
+.g-head{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.g-head .g-ico{width:40px;height:40px;border-radius:11px;background:var(--accent-soft);display:grid;place-items:center;flex-shrink:0}
+.g-head .g-ico svg{width:22px;height:22px;color:var(--accent-strong)}
+.g-head h3{font-size:17px;font-weight:700;margin:0}
+.g-head .g-open{margin-left:auto;font-size:12.5px;font-weight:600;color:var(--accent-strong);text-decoration:none;white-space:nowrap;padding:6px 12px;border:1px solid var(--border);border-radius:8px;transition:.13s}
+.g-head .g-open:hover{background:var(--accent-soft);border-color:var(--accent)}
+.g-desc{color:var(--text-2);font-size:14px;line-height:1.6;margin:8px 0 12px}
+.g-tool ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.g-tool ol li{font-size:14px;line-height:1.6}
+.g-tool ol li b{color:var(--text);font-weight:600}
+.g-note{margin-top:12px;padding:9px 13px;background:var(--surface-3);border-radius:9px;font-size:13px;color:var(--text-2);line-height:1.6}
+.g-note.warn{background:rgba(229,72,77,.10);color:var(--danger)}
+.g-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 10px}
+.g-tabs span{font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--surface-3);color:var(--text-2)}
+@media (max-width:560px){ .g-head .g-open{display:none} }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-inner">
+    <a class="brand" href="index.html">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h6v6H4V4zM14 4h6v6h-6V4zM4 14h6v6H4v-6z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M14 14h2.5v2.5H14V14zM17.5 17.5H20V20h-2.5v-2.5zM14 20h2.5M20 14v2.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="brand-name">Toolbox<small>เครื่องมือออนไลน์ฟรี</small></div>
+    </a>
+    <nav>
+      <a class="tab" href="index.html">ทั้งหมด</a>
+      <details class="nav-drop">
+        <summary class="tab ">
+          เครื่องมือ
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;flex-shrink:0"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="nav-drop-menu">
+          <a class="nav-drop-item" href="qr.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6v6H4V4zM14 4h6v6h-6V4zM4 14h6v6H4v-6z" stroke-linejoin="round"/><path d="M14 14h2.5v2.5H14V14zM17.5 17.5H20V20h-2.5v-2.5zM14 20h2.5M20 14v2.5" stroke-linecap="round"/></svg><span>สร้าง QR Code</span></a>
+          <a class="nav-drop-item" href="qr-presets.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M6 16c.5-2 2-3 2.5-3s2 1 2.5 3M13 9h5M13 13h5" stroke-linecap="round"/></svg><span>QR สำเร็จรูป</span></a>
+          <a class="nav-drop-item" href="promptpay.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h2v2H8zM14 8h2v2h-2zM8 14h2v2H8z" stroke-linejoin="round"/><path d="M14 14h1.5v1.5H14zM15.5 15.5H17V17h-1.5zM14 17h1.5M17 14v1.5" stroke-linecap="round"/></svg><span>QR พร้อมเพย์</span></a>
+          <a class="nav-drop-item" href="image.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21" stroke-linecap="round" stroke-linejoin="round"/></svg><span>ลดขนาด/แปลงรูปภาพ</span></a>
+          <a class="nav-drop-item" href="pdf.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg><span>รูป→PDF / รวม / แยกหน้า</span></a>
+          <a class="nav-drop-item" href="calc-loan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" stroke-linecap="round"/></svg><span>คำนวณผ่อน/สินเชื่อ</span></a>
+          <a class="nav-drop-item" href="calc.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6" stroke-linecap="round"/><path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01" stroke-linecap="round"/></svg><span>ชุดเครื่องคำนวณ</span></a>
+          <a class="nav-drop-item" href="convert.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 9l3-3M4 9l3 3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 15H4M20 15l-3-3M20 15l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>แปลงหน่วย/อุณหภูมิ/สกุลเงิน</span></a>
+          <a class="nav-drop-item" href="bahttext.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 9v.01M18 9v.01M6 15v.01M18 15v.01" stroke-linecap="round"/></svg><span>อ่านจำนวนเงินเป็นตัวอักษรไทย</span></a>
+          <a class="nav-drop-item" href="tax.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/></svg><span>คำนวณภาษีเงินได้บุคคลธรรมดา</span></a>
+          <a class="nav-drop-item" href="random.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg><span>สุ่มรายชื่อ / วงล้อสุ่ม</span></a>
+          <a class="nav-drop-item" href="password.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"/></svg><span>สร้างรหัสผ่านปลอดภัย</span></a>
+          <a class="nav-drop-item" href="date-tools.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke-linecap="round"/></svg><span>อายุ / นับวัน / พ.ศ.-ค.ศ.</span></a>
+          <a class="nav-drop-item" href="text-tools.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h11M4 18h16" stroke-linecap="round"/></svg><span>ชุดเครื่องมือข้อความ</span></a>
+          <a class="nav-drop-item nav-drop-all" href="index.html">ดูเครื่องมือทั้งหมด →</a>
+        </div>
+      </details>
+      <a class="tab active" href="help.html">คู่มือ</a>
+    </nav>
+    <div class="head-right">
+      <button class="icon-btn" id="theme-btn" title="สลับธีม">
+        <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main>
+<div class="guide-wrap">
+
+  <div class="page-head" style="text-align:left">
+    <h1>คู่มือการใช้งาน</h1>
+  </div>
+  <p class="guide-intro">วิธีใช้เครื่องมือทั้ง 14 ตัวในเว็บนี้ · ทุกเครื่องมือ <b>ทำงานในเบราว์เซอร์ของคุณเอง</b>
+  ไม่ต้องล็อกอิน ไม่มีการอัปโหลดไฟล์หรือข้อมูลขึ้นเซิร์ฟเวอร์ (ยกเว้นการดึงอัตราแลกเปลี่ยนสกุลเงินที่ต้องต่อเน็ต)
+  คลิกที่เมนูด้านล่างเพื่อกระโดดไปหัวข้อที่ต้องการ</p>
+
+  <!-- สารบัญ -->
+  <nav class="toc" aria-label="สารบัญ">
+    <a href="#qr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6v6H4V4zM14 4h6v6h-6V4zM4 14h6v6H4v-6z" stroke-linejoin="round"/><path d="M14 14h2.5v2.5H14V14zM14 20h2.5M20 14v2.5" stroke-linecap="round"/></svg>สร้าง QR Code</a>
+    <a href="#qr-presets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/></svg>QR สำเร็จรูป</a>
+    <a href="#promptpay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h2v2H8zM8 14h2v2H8z" stroke-linejoin="round"/></svg>QR พร้อมเพย์</a>
+    <a href="#image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21" stroke-linecap="round"/></svg>ลดขนาด/แปลงรูป</a>
+    <a href="#pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6"/></svg>รูป → PDF</a>
+    <a href="#calc-loan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/></svg>คำนวณผ่อน</a>
+    <a href="#calc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6" stroke-linecap="round"/></svg>ชุดคำนวณ</a>
+    <a href="#convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 9l3-3M4 9l3 3M20 15H4M20 15l-3-3M20 15l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>แปลงหน่วย/สกุลเงิน</a>
+    <a href="#bahttext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>บาทถ้วน</a>
+    <a href="#tax"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6"/></svg>คำนวณภาษี</a>
+    <a href="#random"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/></svg>สุ่ม / วงล้อ</a>
+    <a href="#password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/></svg>สร้างรหัสผ่าน</a>
+    <a href="#date-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke-linecap="round"/></svg>อายุ / วันที่</a>
+    <a href="#text-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h11M4 18h16" stroke-linecap="round"/></svg>ชุดข้อความ</a>
+  </nav>
+
+  <!-- ============ QR & ลิงก์ ============ -->
+  <div class="g-cat">QR &amp; ลิงก์</div>
+
+  <section class="g-tool card" id="qr">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6v6H4V4zM14 4h6v6h-6V4zM4 14h6v6H4v-6z" stroke-linejoin="round"/><path d="M14 14h2.5v2.5H14V14zM17.5 17.5H20V20h-2.5v-2.5zM14 20h2.5M20 14v2.5" stroke-linecap="round"/></svg></div>
+        <h3>สร้าง QR Code</h3>
+        <a class="g-open" href="qr.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">แปลงลิงก์หรือข้อความให้เป็น QR Code ปรับแต่งสี รูปแบบจุด และใส่โลโก้ตรงกลางได้</p>
+      <ol>
+        <li>กรอก <b>ลิงก์ปลายทาง</b> หรือข้อความที่ต้องการในช่องอินพุต — QR จะแสดงตัวอย่างขึ้นมาทันที</li>
+        <li>ปรับแต่งได้: <b>สีจุด/พื้นหลัง</b>, <b>รูปแบบจุด</b> (ค่าเริ่มต้นคือ "เหลี่ยม"), และ <b>ขนาด</b></li>
+        <li>ต้องการโลโก้ตรงกลาง ให้กดอัปโหลดรูปโลโก้ (ปรับขนาดได้)</li>
+        <li>กด <b>ดาวน์โหลด PNG</b> หรือ <b>SVG</b> เพื่อบันทึกไฟล์</li>
+      </ol>
+      <div class="g-note">ไฟล์และข้อมูลทั้งหมดสร้างในเครื่องคุณ ไม่ถูกส่งขึ้นเซิร์ฟเวอร์</div>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="qr-presets">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M6 16c.5-2 2-3 2.5-3s2 1 2.5 3M13 9h5M13 13h5" stroke-linecap="round"/></svg></div>
+        <h3>QR สำเร็จรูป</h3>
+        <a class="g-open" href="qr-presets.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">สร้าง QR สำหรับงานเฉพาะทาง สแกนแล้วทำงานได้เลย</p>
+      <div class="g-tabs"><span>WiFi</span><span>นามบัตร vCard</span><span>อีเมล</span><span>SMS</span><span>โทร</span></div>
+      <ol>
+        <li>เลือก <b>แท็บชนิด</b> ที่ต้องการด้านบน</li>
+        <li>กรอกข้อมูลของชนิดนั้น เช่น <b>WiFi</b> = ชื่อเครือข่าย + รหัสผ่าน · <b>vCard</b> = ชื่อ/เบอร์/อีเมล/บริษัท</li>
+        <li>QR แสดงสดทันที ปรับสี/ขนาดได้เหมือนหน้าสร้าง QR</li>
+        <li>กดดาวน์โหลด PNG/SVG</li>
+      </ol>
+      <div class="g-note">ตัวอย่าง: QR แบบ WiFi สแกนด้วยมือถือแล้วเชื่อมต่อเน็ตได้เลยโดยไม่ต้องพิมพ์รหัส</div>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="promptpay">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h2v2H8zM14 8h2v2h-2zM8 14h2v2H8z" stroke-linejoin="round"/><path d="M14 14h1.5v1.5H14zM14 17h1.5M17 14v1.5" stroke-linecap="round"/></svg></div>
+        <h3>QR พร้อมเพย์</h3>
+        <a class="g-open" href="promptpay.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">สร้าง QR รับเงิน/โอนเงินพร้อมเพย์ จากเบอร์โทรหรือเลขบัตรประชาชน</p>
+      <ol>
+        <li>เลือกว่าจะใช้ <b>เบอร์โทรศัพท์</b> หรือ <b>เลขบัตรประชาชน 13 หลัก</b></li>
+        <li>กรอกเลขให้ถูกต้อง (ระบบตรวจรูปแบบให้)</li>
+        <li>ใส่ <b>จำนวนเงิน</b> ถ้าต้องการระบุยอด หรือเว้นว่างเพื่อให้ผู้โอนกรอกเอง</li>
+        <li>ดาวน์โหลด/บันทึก QR ไปใช้ติดหน้าร้านหรือส่งให้ผู้โอน</li>
+      </ol>
+      <div class="g-note warn">ก่อนใช้รับเงินจริง ควรลองสแกนด้วยแอปธนาคารจริงสัก 1 ครั้ง ให้แน่ใจว่าขึ้นชื่อบัญชี/ยอดถูกต้อง</div>
+    </div>
+  </section>
+
+  <!-- ============ รูปภาพ & PDF ============ -->
+  <div class="g-cat">รูปภาพ &amp; PDF</div>
+
+  <section class="g-tool card" id="image">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>ลดขนาด / แปลงรูปภาพ</h3>
+        <a class="g-open" href="image.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">ย่อขนาด บีบอัด และแปลงฟอร์แมตรูปภาพหลายไฟล์พร้อมกัน</p>
+      <ol>
+        <li><b>ลากรูปมาวาง</b> หรือคลิกเลือกไฟล์ (เลือกได้หลายไฟล์)</li>
+        <li>ตั้งค่า: <b>ขนาดสูงสุด (px)</b> หรือ <b>เปอร์เซ็นต์</b>, <b>คุณภาพ</b> (สำหรับ JPG/WebP), และ <b>ฟอร์แมตออก</b> (JPG/PNG/WebP)</li>
+        <li>กด <b>ประมวลผลทั้งหมด</b> — ระบบจะแสดงขนาดก่อน/หลัง</li>
+        <li>ดาวน์โหลดทีละไฟล์ หรือกด "ดาวน์โหลดทั้งหมด" เพื่อได้เป็นไฟล์ ZIP</li>
+      </ol>
+      <div class="g-note">รูปถูกประมวลผลในเบราว์เซอร์ ไม่ถูกอัปโหลดขึ้นเซิร์ฟเวอร์</div>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="pdf">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg></div>
+        <h3>รูป→PDF / รวม / แยกหน้า / ดึงหน้า</h3>
+        <a class="g-open" href="pdf.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">จัดการ PDF 4 โหมด เลือกจากแท็บด้านบน</p>
+      <ol>
+        <li><b>รูป→PDF:</b> เลือกรูปหลายไฟล์ เรียงลำดับด้วยปุ่มลูกศร เลือกขนาดหน้า (A4 หรือพอดีรูป) แล้วรวมเป็น PDF</li>
+        <li><b>รวม PDF:</b> เลือกไฟล์ PDF หลายไฟล์ จัดลำดับ แล้วรวมเป็นไฟล์เดียว</li>
+        <li><b>แยกหน้า:</b> เลือก PDF 1 ไฟล์ → เว้นว่าง (=ทุกหน้า) หรือระบุช่วง เช่น <b>1-3,5</b> → ได้ PDF <b>แยกไฟล์ละหน้า รวมเป็น ZIP</b></li>
+        <li><b>ดึงหน้า:</b> เลือก PDF → ระบุหน้าที่ต้องการ → รวมเฉพาะหน้าเหล่านั้นเป็น <b>PDF ไฟล์เดียว</b></li>
+      </ol>
+      <div class="g-note">ยังไม่รองรับ: บีบอัดขนาด PDF และแปลง PDF → Word</div>
+    </div>
+  </section>
+
+  <!-- ============ เครื่องคำนวณ ============ -->
+  <div class="g-cat">เครื่องคำนวณ</div>
+
+  <section class="g-tool card" id="calc-loan">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h.01M12 14h.01M16 14h.01" stroke-linecap="round"/></svg></div>
+        <h3>คำนวณผ่อน / สินเชื่อ</h3>
+        <a class="g-open" href="calc-loan.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">คำนวณค่างวดรายเดือน ดอกเบี้ยรวม และตารางผ่อนชำระ</p>
+      <ol>
+        <li>กรอก <b>เงินต้น</b>, <b>ดอกเบี้ย % ต่อปี</b> และ <b>จำนวนงวด (เดือน)</b></li>
+        <li>เลือกแบบดอกเบี้ย: <b>ลดต้นลดดอก</b> (สินเชื่อบ้าน/รถทั่วไป) หรือ <b>คงที่ (Flat)</b></li>
+        <li>ดูผลทันที: ค่างวด/เดือน, ดอกเบี้ยรวม, ยอดชำระรวม และ <b>ตารางผ่อนต่องวด</b></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="calc">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6" stroke-linecap="round"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg></div>
+        <h3>ชุดเครื่องคำนวณ</h3>
+        <a class="g-open" href="calc.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">เครื่องคำนวณที่ใช้บ่อย 5 อย่างในที่เดียว เลือกจากแท็บ</p>
+      <div class="g-tabs"><span>BMI</span><span>ส่วนลด</span><span>VAT 7%</span><span>เปอร์เซ็นต์</span><span>ทิป</span></div>
+      <ol>
+        <li><b>BMI:</b> กรอกน้ำหนัก + ส่วนสูง → ได้ค่า BMI + เกณฑ์แปลผล (ตามเกณฑ์คนเอเชีย)</li>
+        <li><b>ส่วนลด:</b> ราคาเต็ม + % ลด → ราคาสุทธิ + ยอดที่ประหยัด</li>
+        <li><b>VAT 7%:</b> บวก VAT เข้าราคา หรือถอด VAT ออกจากยอดรวม</li>
+        <li><b>เปอร์เซ็นต์:</b> คำนวณ %  3 แบบ (X เป็นกี่% ของ Y / เพิ่ม-ลดกี่% / หาจำนวนเต็ม)</li>
+        <li><b>ทิป:</b> ยอดบิล + % ทิป + หารกี่คน → ทิป, ยอดรวม, ต่อคน</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="convert">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 9l3-3M4 9l3 3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 15H4M20 15l-3-3M20 15l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>แปลงหน่วย / อุณหภูมิ / สกุลเงิน</h3>
+        <a class="g-open" href="convert.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">แปลงหน่วยหลายหมวด + อัตราแลกเปลี่ยนสกุลเงินล่าสุด</p>
+      <ol>
+        <li>เลือก <b>หมวด</b> (ความยาว/น้ำหนัก/พื้นที่/ปริมาตร/ความเร็ว/ข้อมูล/เวลา/อุณหภูมิ/สกุลเงิน)</li>
+        <li>เลือกหน่วย <b>จาก</b> และ <b>เป็น</b> แล้วพิมพ์ตัวเลข — แปลงสดทันที (พิมพ์ฝั่งไหนก็ได้)</li>
+        <li>หมวดพื้นที่มีหน่วยไทย (ไร่/งาน/ตารางวา) ให้ด้วย</li>
+      </ol>
+      <div class="g-note">สกุลเงินดึงอัตราล่าสุดจากอินเทอร์เน็ต (frankfurter.dev) — ต้องต่อเน็ต ใช้เพื่ออ้างอิงเท่านั้น ไม่ใช่เรตซื้อขายจริง</div>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="bahttext">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 9v.01M18 9v.01M6 15v.01M18 15v.01" stroke-linecap="round"/></svg></div>
+        <h3>อ่านจำนวนเงินเป็นตัวอักษรไทย (บาทถ้วน)</h3>
+        <a class="g-open" href="bahttext.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">แปลงตัวเลขจำนวนเงินเป็นคำอ่านภาษาไทย สำหรับใบเสร็จ/เช็ค/ใบกำกับภาษี</p>
+      <ol>
+        <li>พิมพ์ <b>จำนวนเงิน</b> (ใส่ทศนิยม 2 ตำแหน่งเป็นสตางค์ได้ เช่น <b>1250.50</b>)</li>
+        <li>คำอ่านภาษาไทยแสดงทันที เช่น "หนึ่งพันสองร้อยห้าสิบบาทห้าสิบสตางค์"</li>
+        <li>กดปุ่ม <b>คัดลอก</b> เพื่อนำไปวางในเอกสาร</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="tax">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/></svg></div>
+        <h3>คำนวณภาษีเงินได้บุคคลธรรมดา</h3>
+        <a class="g-open" href="tax.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">ประมาณภาษีที่ต้องจ่ายจากเงินได้และค่าลดหย่อน แบบขั้นบันได</p>
+      <ol>
+        <li>กรอก <b>เงินได้ทั้งปี</b></li>
+        <li>กรอก <b>ค่าลดหย่อน</b> ที่มี (คู่สมรส/บุตร/บิดามารดา/ประกันสังคม/ประกันชีวิต-สุขภาพ/RMF-SSF/ดอกเบี้ยบ้าน/บริจาค) — ระบบจำกัดเพดานให้อัตโนมัติ</li>
+        <li>ดูผล: เงินได้สุทธิ, ภาษีที่ต้องชำระ, อัตราภาษีเฉลี่ย และตารางแยกตามขั้น</li>
+      </ol>
+      <div class="g-note warn">เป็นการประมาณการเบื้องต้น กฎ/เพดานลดหย่อนเปลี่ยนได้ในแต่ละปี — ตรวจสอบกับกรมสรรพากรก่อนยื่นจริง</div>
+    </div>
+  </section>
+
+  <!-- ============ ตัวช่วย & สุ่ม ============ -->
+  <div class="g-cat">ตัวช่วย &amp; สุ่ม</div>
+
+  <section class="g-tool card" id="random">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></div>
+        <h3>สุ่มรายชื่อ / วงล้อสุ่ม / สุ่มเลข / ลูกเต๋า</h3>
+        <a class="g-open" href="random.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">สุ่มอย่างเป็นธรรมด้วยตัวสุ่มเข้ารหัส (crypto)</p>
+      <ol>
+        <li><b>สุ่มรายชื่อ:</b> วางรายชื่อทีละบรรทัด → เลือกจำนวนที่จะสุ่ม + ให้ซ้ำได้/ไม่ได้</li>
+        <li><b>วงล้อสุ่ม:</b> ใส่รายการ → กดหมุน → ได้ผู้ชนะ</li>
+        <li><b>สุ่มเลข:</b> ระบุช่วง min–max + จำนวน + ไม่ซ้ำ</li>
+        <li><b>ลูกเต๋า / เหรียญ:</b> ทอยลูกเต๋าหลายลูก หรือโยนเหรียญ</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="password">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+        <h3>สร้างรหัสผ่านปลอดภัย</h3>
+        <a class="g-open" href="password.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">สุ่มรหัสผ่านแข็งแรง หรือ Passphrase (วลี) ที่จำง่ายกว่า</p>
+      <ol>
+        <li>เลื่อน <b>ความยาว</b> (4–64) และเปิด/ปิดชนิดตัวอักษร: พิมพ์ใหญ่/เล็ก/ตัวเลข/สัญลักษณ์</li>
+        <li>เปิด "เลี่ยงตัวกำกวม" เพื่อตัด <b>0 O 1 l I</b> ออก (อ่านง่ายขึ้น)</li>
+        <li>ดู <b>ตัววัดความแข็งแรง</b> → กด <b>คัดลอก</b> หรือ "สุ่มใหม่"</li>
+      </ol>
+      <div class="g-note">รหัสสุ่มในเครื่องคุณ ไม่ถูกส่งหรือบันทึกที่ใด</div>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="date-tools">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke-linecap="round"/></svg></div>
+        <h3>อายุ / นับวัน / แปลง พ.ศ.↔ค.ศ.</h3>
+        <a class="g-open" href="date-tools.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">เครื่องมือเกี่ยวกับวันที่ 4 แบบ</p>
+      <ol>
+        <li><b>อายุ:</b> ใส่วันเกิด → ได้อายุ ปี/เดือน/วัน + อีกกี่วันถึงวันเกิดถัดไป</li>
+        <li><b>นับวัน:</b> เลือก 2 วันที่ → ได้จำนวนวันระหว่างกลาง (แสดงสัปดาห์+วันด้วย)</li>
+        <li><b>บวก/ลบวัน:</b> ใส่วันที่ตั้งต้น + จำนวนวัน (บวกหรือลบ) → ได้วันที่ผลลัพธ์</li>
+        <li><b>แปลงปี:</b> พ.ศ. ↔ ค.ศ. (บวก/ลบ 543) พร้อมวันที่แบบไทย</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="g-tool card" id="text-tools">
+    <div class="card-pad">
+      <div class="g-head">
+        <div class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h11M4 18h16" stroke-linecap="round"/></svg></div>
+        <h3>ชุดเครื่องมือข้อความ</h3>
+        <a class="g-open" href="text-tools.html">เปิดเครื่องมือ →</a>
+      </div>
+      <p class="g-desc">จัดการข้อความหลายอย่างในกล่องเดียว</p>
+      <ol>
+        <li>วาง/พิมพ์ข้อความในกล่องใหญ่ — ระบบ <b>นับตัวอักษร/คำ/บรรทัด/ย่อหน้า</b> ให้ทันที</li>
+        <li><b>แปลงตัวพิมพ์:</b> ใหญ่หมด/เล็กหมด/ขึ้นต้นประโยค/สลับ</li>
+        <li><b>จัดระเบียบ:</b> ลบบรรทัดซ้ำ/บรรทัดว่าง/ช่องว่างเกิน · <b>เรียงบรรทัด</b> ก-ฮ/A-Z/สุ่ม/กลับด้าน</li>
+        <li><b>เลขไทย ↔ อารบิก</b> และ <b>ตรวจเลขบัตรประชาชน 13 หลัก</b> (เช็ค check digit)</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="g-note" style="margin:26px 0 8px;text-align:center">
+    ทุกเครื่องมือทำงานฟรี ในเบราว์เซอร์ · <a href="index.html" style="color:var(--accent-strong);font-weight:600">กลับหน้ารวมเครื่องมือ</a>
+  </div>
+
+</div>
+</main>
+<footer>Toolbox · เครื่องมือออนไลน์ ฟรี ใช้ง่าย ไม่ต้องล็อกอิน</footer>
+<div class="toast" id="toast"></div>
+<script>
+/* ---- theme (persisted) ---- */
+(function () {
+  const root = document.documentElement, btn = document.getElementById('theme-btn');
+  const sun  = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  const moon = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
+  const icon = document.getElementById('theme-icon');
+  function paint() { if (icon) icon.innerHTML = root.getAttribute('data-theme') === 'dark' ? moon : sun; }
+  const saved = localStorage.getItem('qrs-theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  paint();
+  if (btn) btn.onclick = () => {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    localStorage.setItem('qrs-theme', dark ? 'light' : 'dark');
+    paint();
+  };
+})();
+/* ---- close the "เครื่องมือ" nav dropdown when clicking outside it ---- */
+document.addEventListener('click', function (e) {
+  document.querySelectorAll('.nav-drop[open]').forEach(function (d) {
+    if (!d.contains(e.target)) d.removeAttribute('open');
+  });
+});
+</script>
+</body>
+</html>
