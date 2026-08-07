@@ -89,10 +89,19 @@ include __DIR__ . '/includes/header.php';
       </div>
       <div id="sp-list" class="img-list"></div>
 
+      <div style="padding:18px 0 0">
+        <div class="sec-title" style="margin-bottom:10px">รูปแบบการแยก</div>
+        <div class="seg" id="sp-mode">
+          <button type="button" data-v="separate" class="on">แยกเป็นไฟล์ละหน้า (ZIP)</button>
+          <button type="button" data-v="combine">รวมหน้าที่เลือกเป็นไฟล์เดียว</button>
+        </div>
+        <div class="hint" id="sp-mode-hint">"แยกเป็นไฟล์ละหน้า" จะได้ PDF แยกไฟล์ทีละหน้า รวมมาเป็น .zip · "รวมเป็นไฟล์เดียว" จะได้ PDF ไฟล์เดียวที่มีเฉพาะหน้าที่เลือก</div>
+      </div>
+
       <div class="field" style="margin-top:16px">
-        <label class="lab">ช่วงหน้าที่ต้องการ</label>
-        <input class="input" id="sp-range" placeholder="เช่น 1-3,5" disabled>
-        <div class="hint" id="sp-hint">เลือกไฟล์ PDF ก่อนเพื่อดูจำนวนหน้าทั้งหมด — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5</div>
+        <label class="lab">ช่วงหน้าที่ต้องการ <span style="color:var(--text-3);font-weight:400">(เว้นว่าง = ทุกหน้า)</span></label>
+        <input class="input" id="sp-range" placeholder="เช่น 1-3,5 หรือเว้นว่างเพื่อแยกทุกหน้า" disabled>
+        <div class="hint" id="sp-hint">เลือกไฟล์ PDF ก่อนเพื่อดูจำนวนหน้าทั้งหมด — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5 หรือเว้นว่างเพื่อแยกทุกหน้า</div>
       </div>
 
       <button type="button" class="btn btn-primary btn-block" id="sp-btn" disabled style="margin-top:6px">
@@ -129,8 +138,12 @@ include __DIR__ . '/includes/header.php';
         </div>
 
         <div id="result-body" class="hidden">
-          <div class="short-qr-stage" style="min-height:260px;padding:0;overflow:hidden">
+          <div id="result-stage" class="short-qr-stage" style="min-height:260px;padding:0;overflow:hidden">
             <iframe id="result-frame" title="ตัวอย่าง PDF" style="width:100%;height:360px;border:0;border-radius:12px;background:#fff"></iframe>
+          </div>
+          <div id="result-zip" class="no-result hidden" style="padding:44px 20px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;margin-bottom:12px;opacity:.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/><path d="M10 12h2v2h-2zM12 14h2v2h-2zM10 16h2v2h-2z" fill="currentColor" stroke="none"/></svg>
+            <div id="result-zip-text">ไฟล์ ZIP พร้อมดาวน์โหลด</div>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
             <span class="badge" id="result-pages"></span>
@@ -139,7 +152,7 @@ include __DIR__ . '/includes/header.php';
           <div class="ii-name" id="result-name" style="margin-top:10px;font-size:14.5px"></div>
           <button type="button" class="btn btn-primary btn-block" id="btn-download" style="margin-top:14px">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3m0 12l-4-4m4 4l4-4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2" stroke-linecap="round"/></svg>
-            ดาวน์โหลด PDF
+            <span id="btn-download-label">ดาวน์โหลด PDF</span>
           </button>
         </div>
       </div>
@@ -148,4 +161,5 @@ include __DIR__ . '/includes/header.php';
 </div>
 
 <script src="<?= e(asset_url('assets/vendor/pdf-lib.min.js')) ?>"></script>
+<script src="<?= e(asset_url('assets/vendor/jszip.min.js')) ?>"></script>
 <?php include __DIR__ . '/includes/footer.php'; ?>

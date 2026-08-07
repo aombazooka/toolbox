@@ -13,6 +13,7 @@ const { PDFDocument } = window.PDFLib || {};
 let uidCounter = 0;
 let activeTab = 'img2pdf';
 let pageSizeMode = 'a4';
+let splitMode = 'separate'; // 'separate' = one PDF per page (ZIP) · 'combine' = selected pages into one PDF
 
 const i2p = { items: [] };   // [{id,file,name,size,previewUrl,img}]
 const mg  = { items: [] };   // [{id,file,name,size}]
@@ -265,7 +266,11 @@ function parsePageRanges(input, maxPage) {
   const result = [];
   const seen = new Set();
   const tokens = String(input || '').split(',').map(s => s.trim()).filter(Boolean);
-  if (!tokens.length) throw new Error('กรุณาระบุช่วงหน้าที่ต้องการ เช่น 1-3,5');
+  // เว้นว่าง = เลือกทุกหน้า (1..maxPage)
+  if (!tokens.length) {
+    for (let p = 1; p <= maxPage; p++) result.push(p - 1);
+    return result;
+  }
   for (const tok of tokens) {
     const range = tok.match(/^(\d+)\s*-\s*(\d+)$/);
     if (range) {
@@ -333,8 +338,8 @@ function renderSp() {
     hint.textContent = 'กำลังอ่านไฟล์ PDF...';
   } else {
     rangeInput.disabled = false;
-    hint.textContent = 'ไฟล์นี้มีทั้งหมด ' + sp.totalPages + ' หน้า — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5';
-    btn.disabled = rangeInput.value.trim().length === 0;
+    hint.textContent = 'ไฟล์นี้มีทั้งหมด ' + sp.totalPages + ' หน้า — ใส่ช่วงหน้าคั่นด้วยจุลภาค เช่น 1-3,5 หรือเว้นว่างเพื่อแยกทุกหน้า';
+    btn.disabled = false;
   }
 }
 
@@ -358,7 +363,12 @@ async function setSplitFile(file) {
   renderSp();
 }
 
-async function splitPdf(file, rangeStr) {
+function bytesToBlob(outBytes, type) {
+  return new Blob([outBytes.buffer.slice(outBytes.byteOffset, outBytes.byteOffset + outBytes.byteLength)], { type: type });
+}
+
+/* รวมหน้าที่เลือกเป็น PDF ไฟล์เดียว */
+async function splitPdfCombine(file, rangeStr) {
   const bytes = await file.arrayBuffer();
   const srcDoc = await PDFDocument.load(bytes, { ignoreEncryption: true });
   const total = srcDoc.getPageCount();
@@ -367,23 +377,53 @@ async function splitPdf(file, rangeStr) {
   const pages = await newDoc.copyPages(srcDoc, indices);
   pages.forEach(p => newDoc.addPage(p));
   const outBytes = await newDoc.save();
-  return {
-    blob: new Blob([outBytes.buffer.slice(outBytes.byteOffset, outBytes.byteOffset + outBytes.byteLength)], { type: 'application/pdf' }),
-    count: indices.length,
-  };
+  return { blob: bytesToBlob(outBytes, 'application/pdf'), count: indices.length };
+}
+
+/* แยกแต่ละหน้าเป็น PDF ไฟล์ละหน้า แล้วรวมเป็น .zip */
+async function splitPdfSeparate(file, rangeStr, baseName) {
+  if (typeof JSZip === 'undefined') throw new Error('โหลดไลบรารี ZIP ไม่สำเร็จ กรุณารีเฟรชหน้า');
+  const bytes = await file.arrayBuffer();
+  const srcDoc = await PDFDocument.load(bytes, { ignoreEncryption: true });
+  const total = srcDoc.getPageCount();
+  const indices = parsePageRanges(rangeStr, total);
+  const zip = new JSZip();
+  const pad = String(total).length; // เลขหน้าเติมศูนย์นำหน้าให้เรียงถูก เช่น page_01.pdf
+  for (const idx of indices) {
+    const doc = await PDFDocument.create();
+    const [pg] = await doc.copyPages(srcDoc, [idx]);
+    doc.addPage(pg);
+    const outBytes = await doc.save();
+    const n = String(idx + 1).padStart(pad, '0');
+    zip.file(baseName + '_page_' + n + '.pdf', bytesToBlob(outBytes, 'application/pdf'));
+  }
+  const zipBlob = await zip.generateAsync({ type: 'blob' });
+  return { blob: zipBlob, count: indices.length };
 }
 
 /* ---------- result panel ---------- */
-function showResult(blob, name, pages) {
+function showResult(blob, name, pages, opts) {
+  opts = opts || {};
+  const isZip = !!opts.zip;
   if (result && result.url) URL.revokeObjectURL(result.url);
   const url = URL.createObjectURL(blob);
   result = { blob, url, name, pages, size: blob.size };
   $('result-empty').classList.add('hidden');
   $('result-loading').classList.add('hidden');
   $('result-body').classList.remove('hidden');
-  $('result-frame').src = url;
+  // ZIP แสดงตัวอย่างในเบราว์เซอร์ไม่ได้ — ซ่อน iframe แล้วโชว์ป้าย ZIP แทน
+  $('result-stage').classList.toggle('hidden', isZip);
+  $('result-zip').classList.toggle('hidden', !isZip);
+  if (isZip) {
+    $('result-zip-text').textContent = 'ไฟล์ ZIP พร้อมดาวน์โหลด — มี ' + pages + ' ไฟล์ (ไฟล์ละหน้า)';
+    $('result-pages').textContent = pages + ' ไฟล์';
+    $('btn-download-label').textContent = 'ดาวน์โหลด ZIP';
+  } else {
+    $('result-frame').src = url;
+    $('result-pages').textContent = pages + ' หน้า';
+    $('btn-download-label').textContent = 'ดาวน์โหลด PDF';
+  }
   $('result-name').textContent = name;
-  $('result-pages').textContent = pages + (pages === 1 ? ' หน้า' : ' หน้า');
   $('result-size').textContent = formatBytes(blob.size);
   $('btn-reset').disabled = false;
 }
@@ -440,6 +480,7 @@ function bindSeg(containerId, onChange) {
 
 bindSeg('pdf-tabs', switchTab);
 bindSeg('i2p-pagesize', v => { pageSizeMode = v; });
+bindSeg('sp-mode', v => { splitMode = v; });
 
 /* ---------- drop zone wiring ---------- */
 function wireDropZone(dropId, inputId, onFiles) {
@@ -466,7 +507,8 @@ wireDropZone('mg-drop', 'mg-input', addMergeFiles);
 wireDropZone('sp-drop', 'sp-input', fl => setSplitFile(fl[0]));
 
 $('sp-range').addEventListener('input', () => {
-  $('sp-btn').disabled = !sp.file || sp.loading || $('sp-range').value.trim().length === 0;
+  // เว้นว่างได้ (= ทุกหน้า) ขอแค่มีไฟล์และอ่านไฟล์เสร็จแล้ว
+  $('sp-btn').disabled = !sp.file || sp.loading;
 });
 
 /* ---------- action buttons ---------- */
@@ -488,10 +530,17 @@ $('mg-btn').onclick = () => runWithButton($('mg-btn'), async () => {
 
 $('sp-btn').onclick = () => runWithButton($('sp-btn'), async () => {
   if (!sp.file) { toast('กรุณาเลือกไฟล์ PDF ก่อน', 'err'); return; }
-  const { blob, count } = await splitPdf(sp.file, $('sp-range').value);
   const base = (sp.name || 'document').replace(/\.pdf$/i, '');
-  showResult(blob, base + '_extract.pdf', count);
-  toast('แยกหน้าสำเร็จ (' + count + ' หน้า)');
+  const range = $('sp-range').value;
+  if (splitMode === 'combine') {
+    const { blob, count } = await splitPdfCombine(sp.file, range);
+    showResult(blob, base + '_extract.pdf', count);
+    toast('รวมหน้าที่เลือกสำเร็จ (' + count + ' หน้า)');
+  } else {
+    const { blob, count } = await splitPdfSeparate(sp.file, range, base);
+    showResult(blob, base + '_pages.zip', count, { zip: true });
+    toast('แยกหน้าสำเร็จ — ได้ ' + count + ' ไฟล์ (ไฟล์ละหน้า)');
+  }
 });
 
 $('btn-download').onclick = () => {
